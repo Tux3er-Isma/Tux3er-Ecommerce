@@ -1,0 +1,13 @@
+{
+  "name": "Ecommerce",
+  "version": "1.0.0",
+  "description": "Frontend Ecommerce Web APP",
+  "main": "/src/js/script.js",
+  "scripts": {
+    "sass": "sass --watch src/scss/style.scss public/css/style.css",
+    "ngrok": "ngrok http 127.0.0.1:5500"
+  },
+  "keywords": [],
+  "author": "Tux3er-Isma",
+  "license": "MIT"
+}
