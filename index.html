@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Page Title-->
+    <title>TUX3ER - ECOMMERCE</title>
+    <!--Page Logo-->
+    <!--CSS File-->
+    <link rel="stylesheet" href="public/css/style.css" type="text/css">
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/a1618bce8f.js" crossorigin="anonymous"></script>
+    <!--Scroll Reveal-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!--Google Fonts-->
+    <!--Poppins-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="lds-ripple"><div></div><div></div></div>
+    <div class="log-page">
+        <div class="log-page__menu">
+            <a href="#page-one" class="log-page__menu__link log-page__menu__link--1 active" tabindex="0"></a>
+            <a href="#page-two" class="log-page__menu__link log-page__menu__link--2" tabindex="0"></a>
+            <a href="#page-three" class="log-page__menu__link log-page__menu__link--3"></a>
+        </div>
+        <div class="log-page__page--one" id="page-one">
+            <h1 class="log-page__page--one__title">WELCOME</h1>
+            <img src="/public/assets/img/logo.png" alt="Logo" class="log-page__page--one__logo">
+        </div>
+        <div class="log-page__page--two" id="page-two">
+            <h2 class="log-page__page--two__title">Start buying today <br> and you won't get regret</h2>
+            <div class="log-page__page--two__products-container">
+                <marquee direction="left" class="log-page__page--two__products-container__marquee log-page__page--two__products-container__marquee--1"></marquee>
+                <marquee direction="left" class="log-page__page--two__products-container__marquee log-page__page--two__products-container__marquee--2"></marquee>
+            </div>
+        </div>
+        <div class="log-page__page--three" id="page-three">
+            <h2 class="log-page__page--three__title">Log In <br> or <br> Sign Up</h2>
+            <img src="/public/assets/img/logo.png" alt="Logo" class="log-page__page--three__logo">
+            <div class="log-page__page--three__btn-container">
+                <button type="button" class="log-page__page--three__btn-container__btn log-page__page--three__btn-container__login">Log in</button>
+                <p class="log-page__page--three__btn-container__or">Or</p>
+                <button type="button" class="log-page__page--three__btn-container__btn">Sign up</button>
+            </div>
+        </div>
+    </div>
+    <form onsubmit="return false" class="log-form">
+        <h1 class="log-form__title">Log in</h1>
+        <label for="log-form__name">Name</label>
+        <input type="text" placeholder="John Doe" class="log-form__name" required>
+        <label for="log-form__password">Password</label>
+        <input type="password" placeholder="Password" class="log-form__password" required>
+        <div class="log-form__remember">
+            <input type="checkbox" class="log-form__remember__checkbox">
+            <p class="log-form__remember__text">Remember me</p>
+        </div>
+        <button type="submit" class="log-form__btn">Log in</button>
+        <p class="log-form__forgot-password">Forgot Password?</p>
+        <hr>
+        <p class="log-form__account">Don't have an account? <span class="log-form__account__sign-up">Sign up</span></p>
+    </form>
+    <!--JS File-->
+    <script src="/src/js/script.js" type="text/javascript"></script>
+    <script src="/src/js/header.js"></script>
+    <script src="/src/js/main.js"></script>
+</body>
+</html>
