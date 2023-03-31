@@ -1,0 +1,191 @@
+/*SCSS Files*/
+@use 'variables';
+@use 'mixins';
+
+/*Log Page Styles*/
+.log-page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+
+    .log-page__menu{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        width: 100vw;
+        bottom: 50px;
+        z-index: 2;
+
+        .log-page__menu__link{
+            width: 15px;
+            height: 15px;
+            border: 2px solid variables.$black;
+            border-radius: 50%;
+            margin: 10px;
+            transition: all .5s;
+        }
+    }
+
+    .log-page__page--one{
+        scroll-snap-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+        height: 80vh;
+
+        .log-page__page--one__title{
+            font-family: variables.$poppins;
+            text-align: center;
+            font-size: 60px;
+        }
+    }
+
+    .log-page__page--two{
+        width: 100vw;
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        scroll-snap-align: center;
+
+        .log-page__page--two__title{
+            font-family: variables.$poppins;
+            font-size: 30px;
+            text-align: center;
+            width: 100vw;
+        }
+
+        .log-page__page--two__products-container{
+            display: flex;
+            flex-direction: column;
+
+            .log-page__page--two__products-container__marquee{
+                display: flex;
+                width: 100vw;
+
+                .log-page__page--two__products-container__marquee__img{
+                    width: 200px;
+                }
+            }
+        }
+    }
+
+    .log-page__page--three{
+        width: 100vw;
+        height: 100vh;
+        scroll-snap-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .log-page__page--three__title{
+            width: 100vw;
+            font-family: variables.$poppins;
+            font-size: 50px;
+            text-align: center;
+        }
+
+        .log-page__page--three__logo{
+            width: 300px;
+        }
+
+        .log-page__page--three__btn-container{
+            display: flex;
+            flex-direction: column;
+
+            .log-page__page--three__btn-container__btn{
+                background-color: variables.$black;
+                color: variables.$white;
+                border: none;
+                font-family: variables.$poppins;
+                padding: 15px;
+                width: 150px;
+                border-radius: 30px;
+                transition: all .5s;
+                margin: 20px;
+
+                &:hover{
+                    background-color: variables.$white;
+                    color: variables.$black;
+                    border: 2px solid variables.$black;
+                }
+            }
+
+            .log-page__page--three__btn-container__or{
+                font-family: variables.$poppins;
+                text-align: center;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.log-form{
+    width: 100vw;
+    height: 100vh;    
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+    .log-form__title{
+        font-family: variables.$poppins;
+        font-size: 30px;
+        margin-bottom: 100px;
+    }
+
+    .log-form__remember{
+        display: flex;
+        justify-content: flex-start;
+
+        .log-form__remember__checkbox{
+            width: 20px;
+            margin-right: 20px;
+        }
+
+        .log-form__remember__text{
+            font-family: variables.$poppins;
+        }
+    }
+
+    .log-form__btn{
+        background-color: variables.$log-ing;
+        color: variables.$white;
+        border: none;
+        font-family: variables.$poppins;
+        width: 350px;
+        padding: 10px;
+        border-radius: 10px;
+        transition: all .5s;
+
+        &:active{
+            background-color: variables.$sign-up;
+        }
+    }
+
+    .log-form__forgot-password{
+        color: variables.$log-ing;
+        font-weight: bold;
+        font-family: variables.$poppins;
+        margin-top: 20px;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+    .log-form__account{
+        margin-top: 30px;
+        font-family: variables.$poppins;
+
+        .log-form__account__sign-up{
+            font-weight: bold;
+            color: variables.$sign-up;
+
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}
