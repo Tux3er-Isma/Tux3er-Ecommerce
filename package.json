@@ -5,7 +5,7 @@
   "main": "/src/js/script.js",
   "scripts": {
     "sass": "sass --watch src/scss/style.scss public/css/style.css",
-    "ngrok": "ngrok http 127.0.0.1:5500"
+    "ngrok": "ngrok http 127.0.0.1:5501"
   },
   "keywords": [],
   "author": "Tux3er-Isma",
