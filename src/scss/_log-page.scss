@@ -31,15 +31,20 @@
     .log-page__page--one{
         scroll-snap-align: center;
         display: flex;
+        justify-content: space-evenly;
         flex-direction: column;
         align-items: center;
         width: 100vw;
         height: 80vh;
 
         .log-page__page--one__title{
-            font-family: variables.$poppins;
             text-align: center;
-            font-size: 60px;
+            font-size: 40px;
+            width: 100vw;
+        }
+
+        .log-page__page--one__logo{
+            width: 400px;
         }
     }
 
@@ -51,7 +56,6 @@
         scroll-snap-align: center;
 
         .log-page__page--two__title{
-            font-family: variables.$poppins;
             font-size: 30px;
             text-align: center;
             width: 100vw;
@@ -81,10 +85,11 @@
         align-items: center;
 
         .log-page__page--three__title{
+            margin-top: 40px;
             width: 100vw;
-            font-family: variables.$poppins;
-            font-size: 50px;
+            font-size: 30px;
             text-align: center;
+            margin: 20px;
         }
 
         .log-page__page--three__logo{
@@ -94,12 +99,12 @@
         .log-page__page--three__btn-container{
             display: flex;
             flex-direction: column;
+            align-items: center;
 
             .log-page__page--three__btn-container__btn{
                 background-color: variables.$black;
                 color: variables.$white;
                 border: none;
-                font-family: variables.$poppins;
                 padding: 15px;
                 width: 150px;
                 border-radius: 30px;
@@ -113,10 +118,13 @@
                 }
             }
 
-            .log-page__page--three__btn-container__or{
-                font-family: variables.$poppins;
-                text-align: center;
-                font-weight: bold;
+            .log-page__page--three__btn-container__account{
+                margin-top: 20px;
+
+                .log-page__page--three__btn-container__account__sign-up{
+                    color: variables.$sign-up;
+                    font-weight: bold;
+                }
             }
         }
     }
@@ -130,7 +138,6 @@
     align-items: center;
 
     .log-form__title{
-        font-family: variables.$poppins;
         font-size: 30px;
         margin-bottom: 100px;
     }
@@ -143,31 +150,15 @@
             width: 20px;
             margin-right: 20px;
         }
-
-        .log-form__remember__text{
-            font-family: variables.$poppins;
-        }
     }
 
     .log-form__btn{
-        background-color: variables.$log-ing;
-        color: variables.$white;
-        border: none;
-        font-family: variables.$poppins;
-        width: 350px;
-        padding: 10px;
-        border-radius: 10px;
-        transition: all .5s;
-
-        &:active{
-            background-color: variables.$sign-up;
-        }
+        @include mixins.formBtn();
     }
 
     .log-form__forgot-password{
         color: variables.$log-ing;
         font-weight: bold;
-        font-family: variables.$poppins;
         margin-top: 20px;
 
         &:hover{
@@ -177,7 +168,6 @@
 
     .log-form__account{
         margin-top: 30px;
-        font-family: variables.$poppins;
 
         .log-form__account__sign-up{
             font-weight: bold;
@@ -186,6 +176,64 @@
             &:hover{
                 text-decoration: underline;
             }
+        }
+    }
+}
+
+.sign-up-form{
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+    .sign-up-form__password-verification-container{
+        display: flex;
+
+        .sign-up-form__password-verification-container__bars{
+            margin: 5px;
+            width: 80px;
+            height: 5px;
+            border-radius: 30px;
+            background-color: variables.$grey;
+            transition: all .5s;
+        }
+    }
+
+    .sign-up-form__accept{
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+
+        .sign-up-form__accept__checkbox{
+            width: 20px;
+            margin-right: 20px;
+        }
+
+        .sign-up-form__accept__terms{
+
+            .sign-up-form__accept__terms__link{
+                color: variables.$sign-up;
+            }
+        }
+    }
+
+    .sign-up-form__error{
+        margin-bottom: 20px;
+        color: variables.$red;
+        font-weight: bold;
+    }
+
+    .sign-up-form__btn{
+        @include mixins.formBtn();
+    }
+
+    .sign-up-form__account{
+        margin-top: 20px;
+
+        .sign-up-form__account__login{
+            color: variables.$sign-up;
+            font-weight: bold;
         }
     }
 }
