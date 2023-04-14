@@ -1,0 +1,28 @@
+/*SCSS Files*/
+@use 'variables';
+
+/*Mixins*/
+/*Log Page*/
+@mixin formBtn(){
+    background-color: variables.$black;
+    color: variables.$white;
+    border: none;
+    font-family: variables.$poppins;
+    width: 350px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all .5s;
+
+    &:hover{
+        background-color: variables.$white;
+        color: variables.$black;
+        border: 1px solid variables.$black;
+    }
+}
+
+/*Forms*/
+@mixin errorMessage(){
+    margin-bottom: 20px;
+    color: variables.$red;
+    font-weight: bold;
+}
