@@ -152,6 +152,10 @@
         }
     }
 
+    .log-form__error{
+        @include mixins.errorMessage();
+    }
+
     .log-form__btn{
         @include mixins.formBtn();
     }
@@ -219,9 +223,7 @@
     }
 
     .sign-up-form__error{
-        margin-bottom: 20px;
-        color: variables.$red;
-        font-weight: bold;
+        @include mixins.errorMessage();
     }
 
     .sign-up-form__btn{
