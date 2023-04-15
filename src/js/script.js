@@ -190,6 +190,7 @@ function signUp(){
 }
 
 function displayAdminDahsboard(){
+    body.style.overflowX = 'hidden';
     ecommerceMain.style.display = 'none';
     ecommerceMenu.style.display = 'none';
     loader.style.display = 'block';
@@ -199,72 +200,95 @@ function displayAdminDahsboard(){
     }, 1000)
     //NAV
     function displayAdminNav(){
-            //Variables
-    let lr = document.createElement('HR');
-    const nav = document.createElement('NAV');
-    let navReturn = document.createElement('I');
-    let navTitle = document.createElement('H3');
-    const navCredentials = document.createElement('DIV');
-    const navImgContainer = document.createElement('DIV');
-    let navImg = document.createElement('IMG');
-    const navImgContainerInptContainer = document.createElement('DIV');
-    let navImgIcon = document.createElement('I');
-    let navImgInpt = document.createElement('INPUT');
-    const navCredentialsInfo = document.createElement('DIV');
-    let navEmail = document.createElement('SPAN');
-    let navName = document.createElement('P')
+        //Variables
+        let lr = document.createElement('HR');
+        const nav = document.createElement('NAV');
+        let navReturn = document.createElement('I');
+        let navTitle = document.createElement('H3');
+        const navCredentials = document.createElement('DIV');
+        const navImgContainer = document.createElement('DIV');
+        let navImg = document.createElement('IMG');
+        const navImgContainerInptContainer = document.createElement('DIV');
+        let navImgIcon = document.createElement('I');
+        let navImgInpt = document.createElement('INPUT');
+        const navCredentialsInfo = document.createElement('DIV');
+        let navEmail = document.createElement('SPAN');
+        let navName = document.createElement('P')
 
-    //Classes
-    nav.classList.add('ecommerce__admin__nav');
-    navReturn.classList.add('ecommerce__admin__nav__return');
-    navReturn.classList.add('fa-solid');
-    navReturn.classList.add('fa-arrow-left');
-    navTitle.classList.add('ecommerce__admin__nav__title');
-    navCredentials.classList.add('ecommerce__admin__nav__credentials');
-    navImgContainer.classList.add('ecommerce__admin__nav__credentials__img-container');
-    navImg.classList.add('ecommerce__admin__nav__credentials__img-container__img');
-    navImgContainerInptContainer.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container');
-    navImgInpt.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container__inpt');
-    navImgIcon.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container__icon');
-    navImgIcon.classList.add('fa-solid');
-    navImgIcon.classList.add('fa-camera');
-    navCredentialsInfo.classList.add('ecommerce__admin__nav__credentials__info');
-    navEmail.classList.add('ecommerce__admin__nav__credentials__info__email');
-    navName.classList.add('ecommerce__admin__nav__credentials__info__name');
+        //Classes
+        nav.classList.add('ecommerce__admin__nav');
+        navReturn.classList.add('ecommerce__admin__nav__return');
+        navReturn.classList.add('fa-solid');
+        navReturn.classList.add('fa-arrow-left');
+        navTitle.classList.add('ecommerce__admin__nav__title');
+        navCredentials.classList.add('ecommerce__admin__nav__credentials');
+        navImgContainer.classList.add('ecommerce__admin__nav__credentials__img-container');
+        navImg.classList.add('ecommerce__admin__nav__credentials__img-container__img');
+        navImgContainerInptContainer.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container');
+        navImgInpt.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container__inpt');
+        navImgIcon.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container__icon');
+        navImgIcon.classList.add('fa-solid');
+        navImgIcon.classList.add('fa-camera');
+        navCredentialsInfo.classList.add('ecommerce__admin__nav__credentials__info');
+        navEmail.classList.add('ecommerce__admin__nav__credentials__info__email');
+        navName.classList.add('ecommerce__admin__nav__credentials__info__name');
 
-    //Attributes and Content
-    navTitle.textContent = "Profile";
-    navImgInpt.setAttribute('type', 'file');
-    navImgInpt.setAttribute('accept', 'image/*');
-    navEmail.innerHTML = email;
-    navName.innerHTML = username;
+        //Attributes and Content
+        navTitle.textContent = "Profile";
+        navImgInpt.setAttribute('type', 'file');
+        navImgInpt.setAttribute('accept', 'image/*');
+        navEmail.innerHTML = email;
+        navName.innerHTML = username;
 
-    navCredentialsInfo.appendChild(navEmail);
-    navCredentialsInfo.appendChild(navName);
-    navImgContainer.appendChild(navImg);
-    navImgContainerInptContainer.appendChild(navImgInpt);
-    navImgContainerInptContainer.appendChild(navImgIcon);
-    navImgContainer.appendChild(navImgContainerInptContainer);
-    navCredentials.appendChild(navImgContainer);
-    navCredentials.appendChild(navCredentialsInfo);
-    nav.appendChild(navReturn);
-    nav.appendChild(navTitle);
-    nav.appendChild(lr);
-    nav.appendChild(navCredentials);
-    ecommerceAdmin.appendChild(nav);
+        navCredentialsInfo.appendChild(navEmail);
+        navCredentialsInfo.appendChild(navName);
+        navImgContainer.appendChild(navImg);
+        navImgContainerInptContainer.appendChild(navImgInpt);
+        navImgContainerInptContainer.appendChild(navImgIcon);
+        navImgContainer.appendChild(navImgContainerInptContainer);
+        navCredentials.appendChild(navImgContainer);
+        navCredentials.appendChild(navCredentialsInfo);
+        nav.appendChild(navReturn);
+        nav.appendChild(navTitle);
+        nav.appendChild(lr);
+        nav.appendChild(navCredentials);
+        ecommerceAdmin.appendChild(nav);
 
-    //Event Listeners
-    navImgInpt.addEventListener('click', () =>{
-        navImgInpt.addEventListener('change', () =>{
-            let file = navImgInpt.files[0];
-            const url = URL.createObjectURL(file);
-            console.log(file);
-            navImgIcon.style.opacity = '0';
-            navImg.setAttribute('src', url);
+        //Event Listeners
+        navReturn.addEventListener('click', () =>{
+            while (ecommerceAdmin.firstChild){
+                ecommerceAdmin.removeChild(ecommerceAdmin.firstChild);
+            }
+            ecommerceAdmin.style.display = 'none';
+            loader.style.display = 'block';
+            setTimeout(() =>{
+                loader.style.display = 'none';
+                ecommerceMenu.style.display = 'flex';
+                ecommerceMain.style.display = 'flex';
+            }, 600)
         })
-    })
+        navImgInpt.addEventListener('click', () =>{
+            navImgInpt.addEventListener('change', () =>{
+                let file = navImgInpt.files[0];
+                const url = URL.createObjectURL(file);
+                console.log(file);
+                navImgIcon.style.opacity = '0';
+                navImg.setAttribute('src', url);
+            })
+        })
     }
     function displayAdminMain(){
+        //MAIN
+        //Variables
+        const main = document.createElement('MAIN');
+        let mainTitle = document.createElement('H3');
+
+        //Classes
+        main.classList.add('ecommerce__admin__main');
+        mainTitle.classList.add('ecommerce__admin__main__title');
+
+        //Attributes and Content
+        mainTitle.textContent = ""
     }
     displayAdminNav();
     displayAdminMain();
