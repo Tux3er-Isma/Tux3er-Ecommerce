@@ -3,16 +3,12 @@
 @use 'variables';
 @use 'mixins';
 @use 'log-page';
-@use 'header';
-@use 'main';
+@use 'ecommerce';
 
 /*General Styles*/
 *{
     scroll-behavior: smooth;
-}
-
-html{
-    overflow: hidden;
+    font-family: variables.$poppins;
 }
 
 body{
@@ -23,10 +19,14 @@ body{
     min-height: 100vh;
 }
 
+.raro{
+  display: none;
+}
+
 hr{
     width: 350px;
     margin-top: 30px;
-    border: 1px solid #ddd;
+    border: 1px solid variables.$grey;
 }
 
 .active{
@@ -106,4 +106,8 @@ input::placeholder{
     height: 72px;
     opacity: 0;
   }
+}
+
+.fa-solid{
+  font-size: 25px;
 }
