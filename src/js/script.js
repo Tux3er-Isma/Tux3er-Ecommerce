@@ -2,10 +2,10 @@
 
 //General Variables
 const body = document.body;
-const sellersNames = ['jessica'];
-const sellersSeudonims = ['Jess_.']
-const statusOp = ['online', 'offline'];
-const apiKey = "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";
+let username;
+let email;
+let password;
+let userimg;
 
 //Log Page
 const logPage = document.querySelector('.log-page');
@@ -72,8 +72,8 @@ const ecommerceMenuListContainer = document.querySelector('.ecommerce__menu__lis
 const ecommerceMain = document.querySelector('.ecommerce__main');
 let ecommerceMainTitle = document.querySelector('.ecommerce__main__title');
 const ecommerceMainProductsContainer = document.querySelector('.ecommerce__main__products-container');
-const ecommerceMainProductsContainerItemsArr = ecommerceMainProductsContainer.childNodes;
-const ecommerceChat = document.querySelector('.ecommerce__chat');
+let ecommerceAdminIcon = document.querySelector('.ecommerce-menu__list-container__item--1');
+const ecommerceAdmin = document.querySelector('.ecommerce__admin');
 
 
 //Scroll Reveal
@@ -190,6 +190,84 @@ function signUp(){
 }
 
 function displayAdminDahsboard(){
+    ecommerceMain.style.display = 'none';
+    ecommerceMenu.style.display = 'none';
+    loader.style.display = 'block';
+    setTimeout(() =>{
+        loader.style.display = 'none';
+        ecommerceAdmin.style.display = 'flex';
+    }, 1000)
+    //NAV
+    function displayAdminNav(){
+            //Variables
+    let lr = document.createElement('HR');
+    const nav = document.createElement('NAV');
+    let navReturn = document.createElement('I');
+    let navTitle = document.createElement('H3');
+    const navCredentials = document.createElement('DIV');
+    const navImgContainer = document.createElement('DIV');
+    let navImg = document.createElement('IMG');
+    const navImgContainerInptContainer = document.createElement('DIV');
+    let navImgIcon = document.createElement('I');
+    let navImgInpt = document.createElement('INPUT');
+    const navCredentialsInfo = document.createElement('DIV');
+    let navEmail = document.createElement('SPAN');
+    let navName = document.createElement('P')
+
+    //Classes
+    nav.classList.add('ecommerce__admin__nav');
+    navReturn.classList.add('ecommerce__admin__nav__return');
+    navReturn.classList.add('fa-solid');
+    navReturn.classList.add('fa-arrow-left');
+    navTitle.classList.add('ecommerce__admin__nav__title');
+    navCredentials.classList.add('ecommerce__admin__nav__credentials');
+    navImgContainer.classList.add('ecommerce__admin__nav__credentials__img-container');
+    navImg.classList.add('ecommerce__admin__nav__credentials__img-container__img');
+    navImgContainerInptContainer.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container');
+    navImgInpt.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container__inpt');
+    navImgIcon.classList.add('ecommerce__admin__nav__credentials__img-container__inpt-container__icon');
+    navImgIcon.classList.add('fa-solid');
+    navImgIcon.classList.add('fa-camera');
+    navCredentialsInfo.classList.add('ecommerce__admin__nav__credentials__info');
+    navEmail.classList.add('ecommerce__admin__nav__credentials__info__email');
+    navName.classList.add('ecommerce__admin__nav__credentials__info__name');
+
+    //Attributes and Content
+    navTitle.textContent = "Profile";
+    navImgInpt.setAttribute('type', 'file');
+    navImgInpt.setAttribute('accept', 'image/*');
+    navEmail.innerHTML = email;
+    navName.innerHTML = username;
+
+    navCredentialsInfo.appendChild(navEmail);
+    navCredentialsInfo.appendChild(navName);
+    navImgContainer.appendChild(navImg);
+    navImgContainerInptContainer.appendChild(navImgInpt);
+    navImgContainerInptContainer.appendChild(navImgIcon);
+    navImgContainer.appendChild(navImgContainerInptContainer);
+    navCredentials.appendChild(navImgContainer);
+    navCredentials.appendChild(navCredentialsInfo);
+    nav.appendChild(navReturn);
+    nav.appendChild(navTitle);
+    nav.appendChild(lr);
+    nav.appendChild(navCredentials);
+    ecommerceAdmin.appendChild(nav);
+
+    //Event Listeners
+    navImgInpt.addEventListener('click', () =>{
+        navImgInpt.addEventListener('change', () =>{
+            let file = navImgInpt.files[0];
+            const url = URL.createObjectURL(file);
+            console.log(file);
+            navImgIcon.style.opacity = '0';
+            navImg.setAttribute('src', url);
+        })
+    })
+    }
+    function displayAdminMain(){
+    }
+    displayAdminNav();
+    displayAdminMain();
 }
 
 function displayEcommerce(){
@@ -203,124 +281,9 @@ function displayEcommerce(){
         sr.reveal(ecommerceMainTitle, {
             delay: 600
         })
-        ecommerceMainProductsContainerItemsArr.forEach((element) =>{
-            sr.reveal(element, {
-                delay: 500,
-                reset: true
-            })
-        })
     }, 1000) 
 }
 
-function displayChat(){
-    ecommerceMenu.style.display = 'none';
-    ecommerceMain.style.display = 'none';
-    loader.style.display = 'block';
-    setTimeout(() =>{
-        loader.style.display = 'none';
-        ecommerceChat.style.display = 'block';
-    }, 1000)
-    const sellerInformationContainer = document.createElement('DIV');
-    let sellerImg = document.createElement('IMG');
-    let sellerNameContainer = document.createElement('DIV');
-    let sellerSeudonim = document.createElement('P');
-    let sellerName = document.createElement('P');
-    const status = document.createElement('DIV');
-    let statusDot = document.createElement('DIV');
-    let statusInfo = document.querySelector('P');
-
-    const ecommerceChatMain = document.createElement('DIV');
-
-    const inptContainer = document.createElement('DIV');
-    let inpt = document.createElement('INPUT');
-    let btn = document.createElement('BUTTON');
-
-    sellerInformationContainer.classList.add('ecommerce__chat__s-info-container');
-    sellerImg.classList.add('ecommerce__chat__s-info-container__img');
-    sellerNameContainer.classList.add('ecommerce__chat__s-info-container__name-container')
-    sellerSeudonim.classList.add('ecommerce__chat__s-info-container__name-container__seudonim');
-    sellerName.classList.add('ecommerce__chat__s-info-container__name-container__name');
-    status.classList.add('ecommerce__chat__s-info-container__status');
-    statusDot.classList.add('ecommerce__chat__s-info-container__status__dot');
-    statusInfo.classList.add('ecommerce__chat__s-info-container__status__info');
-
-    ecommerceChatMain.classList.add('ecommerce__chat__main');
-
-    inptContainer.classList.add('ecommerce__chat__inpt-container');
-    inpt.classList.add('ecommerce__chat__inpt-container__inpt');
-    btn.classList.add('ecommerce__chat__inpt-container__btn');
-
-    for (let i = 0; i < sellersNames.length; i++){
-        sellerImg.setAttribute('src', `${location.href}/public/assets/img/${sellersNames[i]}.png`);
-        sellerName.textContent = sellersNames[i];
-        sellerSeudonim.textContent = sellersSeudonims[i];
-    }
-
-    statusInfo.innerHTML = statusOp[Math.floor(Math.random()*1)];
-    if (statusInfo.innerHTML == 'online'){
-        statusDot.classList.add('ecommerce__chat__s-info-container__status__dot--online');
-    } else {
-        statusDot.classList.add('ecommerce__chat__s-info-container__status__dot--offline');
-    }
-
-    inpt.setAttribute('type', 'text');
-    inpt.setAttribute('placeholder', 'Send a message...');
-    btn.setAttribute('type', 'submit');
-
-    btn.innerHTML = "Send";
-    btn.addEventListener('click', async  () =>{
-                let preText;
-                        for (let i = 0; i < sellersNames.length; i++){
-                            preText = `Your name is jessica, you are selling a blue bagpack that costs 109.99$ if the user tells you to get a lower price you can do it. Don't tal for we talk about you.`
-                        }
-                const buyerRes = document.createElement('DIV');
-                buyerRes.classList.add('ecommerce__chat__main__buyer')
-                let buyerResText = document.createElement('P');
-                buyerResText.classList.add('ecommerce__chat__main__buyer__text');
-                buyerResText.innerHTML = inpt.value;
-                const mes = inpt.value;
-                buyerRes.appendChild(buyerResText)
-                ecommerceChatMain.appendChild(buyerRes);
-                inpt.value = '';
-                const response = await axios.post(
-                "https://api.openai.com/v1/completions",
-                {
-                  prompt: preText + `${mes}`,
-                  model: "text-davinci-003",
-                  temperature: 0,
-                  max_tokens: 1000,
-                  top_p: 1,
-                  frequency_penalty: 0.0,
-                  presence_penalty: 0.0,
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${apiKey}`,
-                  },
-                }
-              );
-            const chatbotResponse = response.data.choices[0].text;
-            let chatBot = document.createElement('DIV');
-            chatBot.classList.add('ecommerce__chat__main__bot')
-            chatBot.innerHTML = chatbotResponse;
-            console.log(chatbotResponse);
-            ecommerceChatMain.appendChild(chatBot);
-              });
-
-    status.appendChild(statusDot);
-    status.appendChild(statusInfo);
-    sellerNameContainer.appendChild(sellerSeudonim);
-    sellerNameContainer.appendChild(sellerName);
-    sellerInformationContainer.appendChild(sellerImg);
-    sellerInformationContainer.appendChild(sellerNameContainer);
-    sellerInformationContainer.appendChild(status);
-    inptContainer.appendChild(inpt);
-    inptContainer.appendChild(btn);
-    ecommerceChat.appendChild(sellerInformationContainer);
-    ecommerceChat.appendChild(ecommerceChatMain);
-    ecommerceChat.appendChild(inptContainer);
-}
 
 //Event Listeners
 logPage.addEventListener('scroll', () =>{
@@ -354,6 +317,9 @@ logFormBtn.addEventListener('click', () =>{
     } else if (logFormPasswordInpt.value.length < 6){
         logFormError.innerHTML = "At least 6 characters for the password";
     } else {
+        username = "John Doe";
+        email = logFormNameInpt.value;
+        password = logFormPasswordInpt.value;
         logForm.style.display = 'none';
         displayEcommerce();
     }
@@ -385,10 +351,13 @@ signUpFormPasswordInpt.addEventListener('keyup', (evt) =>{
 
 signUpFormBtn.addEventListener('click', () =>{
     if (signUpFormAcceptCheckbox.checked == false){
-        signUpFormError.innerHTML = "You haven't accepted the Terms and Conditions!"
+        signUpFormError.innerHTML = "You haven't accepted the Terms and Conditions!";
     } else if (signUpFormPasswordInpt.value.length < 6){
         signUpFormError.innerHTML = "At least 6 characters for the password";
     } else {
+        username = signUpFormNameInpt.value;
+        email = signUpFormEmailInpt.value;
+        password = signUpFormPasswordInpt.value;
         signUpForm.style.display = 'none';
         displayEcommerce();
     }
@@ -467,7 +436,7 @@ const getEcommerceProducts = async () =>{
                 ecommerceMainProductsContainer.appendChild(container);
 
                 //Event Listeners
-                chat.addEventListener('click', displayChat);
+                ecommerceAdminIcon.addEventListener('click', displayAdminDahsboard);
             }
         })
     }).catch((err) =>{
