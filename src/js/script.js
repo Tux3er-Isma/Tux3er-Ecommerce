@@ -6,6 +6,7 @@ let username;
 let email;
 let password;
 let userimg;
+let imgUrl;
 
 //Log Page
 const logPage = document.querySelector('.log-page');
@@ -190,7 +191,6 @@ function signUp(){
 }
 
 function displayAdminDahsboard(){
-    body.style.overflowX = 'hidden';
     ecommerceMain.style.display = 'none';
     ecommerceMenu.style.display = 'none';
     loader.style.display = 'block';
@@ -254,6 +254,12 @@ function displayAdminDahsboard(){
         nav.appendChild(navCredentials);
         ecommerceAdmin.appendChild(nav);
 
+        //Conditions
+        if (imgUrl != undefined){
+            navImg.setAttribute('src', imgUrl);
+            navImgIcon.style.opacity = '0';
+        }
+
         //Event Listeners
         navReturn.addEventListener('click', () =>{
             while (ecommerceAdmin.firstChild){
@@ -270,10 +276,11 @@ function displayAdminDahsboard(){
         navImgInpt.addEventListener('click', () =>{
             navImgInpt.addEventListener('change', () =>{
                 let file = navImgInpt.files[0];
-                const url = URL.createObjectURL(file);
+                imgUrl = URL.createObjectURL(file);
                 console.log(file);
+                console.log(imgUrl);
                 navImgIcon.style.opacity = '0';
-                navImg.setAttribute('src', url);
+                navImg.setAttribute('src', imgUrl);
             })
         })
     }
