@@ -129,6 +129,7 @@
 
     .ecommerce__admin{
         display: none;
+        flex-direction: column;
         min-height: 100vh;
 
         .ecommerce__admin__nav{
@@ -200,6 +201,75 @@
 
                     .ecommerce__admin__nav__credentials__info__name{
                         font-weight: bold;
+                    }
+                }
+            }
+        }
+
+        .ecommerce__admin__main{
+            margin-top: 20px;
+
+            .ecommerce__admin__main__title{
+                margin-left: 20px;
+                margin-bottom: 20px;
+            }
+
+            .ecommerce__admin__main__change-container{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+
+                .ecommerce__admin__main__change-container__container{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 370px;
+                    border: 2px solid variables.$black;
+                    border-radius: 30px;
+                    padding: 2px;
+                    margin-bottom: 10px;
+
+                    .ecommerce__admin__main__change-container__container__txt{
+                        margin-left: 20px;
+                    }
+
+                    .ecommerce__admin__main__change-container__container__next-btn{
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
+                        margin-right: 20px;
+                        width: 40px;
+                        height: 40px;
+                        background-color: variables.$grey;
+                        padding: 1.4px;
+                        border-radius: 50%;
+                        overflow: hidden;
+
+                        .ecommerce__admin__main__change-container__container__next-btn__icon{
+                            transition: all .5s;
+
+                            @keyframes double{
+                                0%{
+                                    transform: translateX(0px);
+                                }
+
+                                100%{
+                                    transform: translateX(50px);
+                                }
+                            }
+
+                            @keyframes double-finish{
+                                0%{
+                                    transform: translateX(-50px);
+                                }
+
+                                100%{
+                                    transform: translateX(0px);
+                                }
+                            }
+                        }
                     }
                 }
             }
