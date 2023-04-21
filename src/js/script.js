@@ -289,13 +289,63 @@ function displayAdminDahsboard(){
         //Variables
         const main = document.createElement('MAIN');
         let mainTitle = document.createElement('H3');
+        const changeContainer = document.createElement('DIV');
 
         //Classes
         main.classList.add('ecommerce__admin__main');
         mainTitle.classList.add('ecommerce__admin__main__title');
+        changeContainer.classList.add('ecommerce__admin__main__change-container');
 
         //Attributes and Content
-        mainTitle.textContent = ""
+        mainTitle.textContent = "Settings";
+
+        //Functions
+        function createChangeCredentials(txt){
+            //Variables
+            const container = document.createElement('DIV');
+            let changeTxt = document.createElement('P');
+            let nextBtn = document.createElement('BUTTON');
+            let nextBtnIcon = document.createElement('I');
+
+            //Attributes and Content
+            changeTxt.textContent = txt;
+
+            //Classes
+            container.classList.add('ecommerce__admin__main__change-container__container');
+            changeTxt.classList.add('ecommerce__admin__main__change-container__container__txt');
+            nextBtn.classList.add('ecommerce__admin__main__change-container__container__next-btn');
+            nextBtnIcon.classList.add('ecommerce__admin__main__change-container__container__next-btn__icon');
+            nextBtnIcon.classList.add('fa-solid');
+            nextBtnIcon.classList.add('fa-chevron-right')
+
+            //Append Child
+            nextBtn.appendChild(nextBtnIcon);
+            container.appendChild(changeTxt);
+            container.appendChild(nextBtn);
+            changeContainer.appendChild(container);
+
+            //Event Listeners
+            nextBtnIcon.addEventListener('mouseover', () =>{
+                nextBtnIcon.style.animation = 'double 1s forwards';
+                setTimeout(() =>{
+                    nextBtnIcon.classList.remove('fa-chevron-right');
+                    nextBtnIcon.addEventListener('animationend', () =>{
+                        nextBtnIcon.style.animation = 'double-finish 1s forwards';
+                        nextBtnIcon.classList.add('fa-angles-right');
+                    })
+                }, 400)
+            })
+        }
+
+        //Calling Functions
+        createChangeCredentials("Change Name");
+        createChangeCredentials("Change Password");
+        createChangeCredentials("Change Email");
+
+        //Append Child
+        main.appendChild(mainTitle);
+        main.appendChild(changeContainer);
+        ecommerceAdmin.appendChild(main);
     }
     displayAdminNav();
     displayAdminMain();
