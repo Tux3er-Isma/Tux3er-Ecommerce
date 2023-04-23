@@ -290,14 +290,21 @@ function displayAdminDahsboard(){
         const main = document.createElement('MAIN');
         let mainTitle = document.createElement('H3');
         const changeContainer = document.createElement('DIV');
+        const changePage = document.createElement('DIV');
+        let changePageTitle = document.createElement('H2');
 
-        //Classes
+
+        //Classes and IDs
         main.classList.add('ecommerce__admin__main');
         mainTitle.classList.add('ecommerce__admin__main__title');
         changeContainer.classList.add('ecommerce__admin__main__change-container');
+        changePage.classList.add('ecommerce__admin__main__change-page');
+        changePage.id = 'ecommerce__admin__main__change-page';
+        changePageTitle.classList.add('ecommerce__admin__main__change-page__title');
 
         //Attributes and Content
         mainTitle.textContent = "Settings";
+        changePageTitle.textContent = "Title";
 
         //Functions
         function createChangeCredentials(txt){
@@ -305,10 +312,11 @@ function displayAdminDahsboard(){
             const container = document.createElement('DIV');
             let changeTxt = document.createElement('P');
             let nextBtn = document.createElement('BUTTON');
-            let nextBtnIcon = document.createElement('I');
+            let nextBtnIcon = document.createElement('A');
 
             //Attributes and Content
             changeTxt.textContent = txt;
+            nextBtnIcon.setAttribute('href', '#ecommerce__admin__main__change-page');
 
             //Classes
             container.classList.add('ecommerce__admin__main__change-container__container');
@@ -325,7 +333,7 @@ function displayAdminDahsboard(){
             changeContainer.appendChild(container);
 
             //Event Listeners
-            nextBtnIcon.addEventListener('mouseover', () =>{
+            nextBtnIcon.addEventListener('click', (evt) =>{
                 nextBtnIcon.style.animation = 'double 1s forwards';
                 setTimeout(() =>{
                     nextBtnIcon.classList.remove('fa-chevron-right');
@@ -333,6 +341,14 @@ function displayAdminDahsboard(){
                         nextBtnIcon.style.animation = 'double-finish 1s forwards';
                         nextBtnIcon.classList.add('fa-angles-right');
                     })
+                    let changePageTxt = evt.target.parentNode.parentNode.childNodes[0].textContent;
+                    if (changePageTxt == 'Change Name'){
+                        console.log(1);
+                    } else if (changePageTxt == 'Change Password'){
+                        console.log(2);
+                    } else {
+                        console.log(3);
+                    }
                 }, 400)
             })
         }
@@ -343,8 +359,10 @@ function displayAdminDahsboard(){
         createChangeCredentials("Change Email");
 
         //Append Child
+        changePage.appendChild(changePageTitle);
         main.appendChild(mainTitle);
         main.appendChild(changeContainer);
+        ecommerceAdmin.appendChild(changePage);
         ecommerceAdmin.appendChild(main);
     }
     displayAdminNav();
