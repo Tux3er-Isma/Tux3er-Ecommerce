@@ -2,6 +2,11 @@
 
 //General Variables
 const body = document.body;
+const DISPLAY_TYPES = {
+    NONE: "none",
+    FLEX: "flex",
+    BLOCK: "block"
+}
 let username;
 let email;
 let password;
@@ -215,8 +220,9 @@ function displayAdminDahsboard(){
         let navEmail = document.createElement('SPAN');
         let navName = document.createElement('P')
 
-        //Classes
+        //Classes and ID's
         nav.classList.add('ecommerce__admin__nav');
+        nav.id = 'ecommerce__admin__nav';
         navReturn.classList.add('ecommerce__admin__nav__return');
         navReturn.classList.add('fa-solid');
         navReturn.classList.add('fa-arrow-left');
@@ -291,6 +297,7 @@ function displayAdminDahsboard(){
         let mainTitle = document.createElement('H3');
         const changeContainer = document.createElement('DIV');
         const changePage = document.createElement('DIV');
+        let changePageReturn = document.createElement('I');
         let changePageTitle = document.createElement('H2');
 
 
@@ -301,6 +308,9 @@ function displayAdminDahsboard(){
         changePage.classList.add('ecommerce__admin__main__change-page');
         changePage.id = 'ecommerce__admin__main__change-page';
         changePageTitle.classList.add('ecommerce__admin__main__change-page__title');
+        changePageReturn.classList.add('ecommerce__admin__main__change-page__return');
+        changePageReturn.classList.add('fa-solid');
+        changePageReturn.classList.add('fa-arrow-left');
 
         //Attributes and Content
         mainTitle.textContent = "Settings";
@@ -312,11 +322,10 @@ function displayAdminDahsboard(){
             const container = document.createElement('DIV');
             let changeTxt = document.createElement('P');
             let nextBtn = document.createElement('BUTTON');
-            let nextBtnIcon = document.createElement('A');
+            let nextBtnIcon = document.createElement('I');
 
             //Attributes and Content
             changeTxt.textContent = txt;
-            nextBtnIcon.setAttribute('href', '#ecommerce__admin__main__change-page');
 
             //Classes
             container.classList.add('ecommerce__admin__main__change-container__container');
@@ -335,23 +344,39 @@ function displayAdminDahsboard(){
             //Event Listeners
             nextBtnIcon.addEventListener('click', (evt) =>{
                 nextBtnIcon.style.animation = 'double 1s forwards';
+                main.style.display = DISPLAY_TYPES.NONE;
+                document.querySelector('.ecommerce__admin__nav').style.display = DISPLAY_TYPES.NONE;
+                loader.style.display = DISPLAY_TYPES.BLOCK;
                 setTimeout(() =>{
-                    nextBtnIcon.classList.remove('fa-chevron-right');
-                    nextBtnIcon.addEventListener('animationend', () =>{
-                        nextBtnIcon.style.animation = 'double-finish 1s forwards';
-                        nextBtnIcon.classList.add('fa-angles-right');
-                    })
-                    let changePageTxt = evt.target.parentNode.parentNode.childNodes[0].textContent;
-                    if (changePageTxt == 'Change Name'){
-                        console.log(1);
-                    } else if (changePageTxt == 'Change Password'){
-                        console.log(2);
-                    } else {
-                        console.log(3);
-                    }
+                    loader.style.display = DISPLAY_TYPES.NONE;
+                    changePage.style.display = DISPLAY_TYPES.FLEX;
+                    // nextBtnIcon.classList.remove('fa-chevron-right');
+                    // nextBtnIcon.addEventListener('animationend', () =>{
+                    //     nextBtnIcon.style.animation = 'double-finish 1s forwards';
+                    //     nextBtnIcon.classList.add('fa-angles-right');
+                    // })
+                    // let changePageTxt = evt.target.parentNode.parentNode.childNodes[0].textContent;
+                    // if (changePageTxt == 'Change Name'){
+                    //     console.log(1);
+                    // } else if (changePageTxt == 'Change Password'){
+                    //     console.log(2);
+                    // } else {
+                    //     console.log(3);
+                    // }
                 }, 400)
             })
         }
+
+        //Event Listeners
+        changePageReturn.addEventListener('click', () =>{
+            changePage.style.display = DISPLAY_TYPES.NONE;
+            loader.style.display = DISPLAY_TYPES.BLOCK;
+            setTimeout(() =>{
+                loader.style.display = DISPLAY_TYPES.NONE;
+                main.style.display = DISPLAY_TYPES.BLOCK;
+                document.querySelector('.ecommerce__admin__nav').style.display = DISPLAY_TYPES.FLEX;
+            }, 400)
+        })
 
         //Calling Functions
         createChangeCredentials("Change Name");
@@ -359,11 +384,12 @@ function displayAdminDahsboard(){
         createChangeCredentials("Change Email");
 
         //Append Child
+        changePage.appendChild(changePageReturn);
         changePage.appendChild(changePageTitle);
         main.appendChild(mainTitle);
         main.appendChild(changeContainer);
-        ecommerceAdmin.appendChild(changePage);
         ecommerceAdmin.appendChild(main);
+        ecommerceAdmin.appendChild(changePage);
     }
     displayAdminNav();
     displayAdminMain();
