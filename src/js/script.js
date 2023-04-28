@@ -305,16 +305,16 @@ function displayAdminDahsboard(){
         main.classList.add('ecommerce__admin__main');
         mainTitle.classList.add('ecommerce__admin__main__title');
         changeContainer.classList.add('ecommerce__admin__main__change-container');
-        changePage.classList.add('ecommerce__admin__main__change-page');
+        changePage.classList.add('ecommerce__admin__change-page');
         changePage.id = 'ecommerce__admin__main__change-page';
-        changePageTitle.classList.add('ecommerce__admin__main__change-page__title');
-        changePageReturn.classList.add('ecommerce__admin__main__change-page__return');
+        changePageTitle.classList.add('ecommerce__admin__change-page__title');
+        changePageReturn.classList.add('ecommerce__admin__change-page__return');
         changePageReturn.classList.add('fa-solid');
         changePageReturn.classList.add('fa-arrow-left');
 
         //Attributes and Content
         mainTitle.textContent = "Settings";
-        changePageTitle.textContent = "Title";
+        changePageTitle.textContent = "Change your credentials";
 
         //Functions
         function createChangeCredentials(txt){
@@ -343,7 +343,7 @@ function displayAdminDahsboard(){
 
             //Event Listeners
             nextBtnIcon.addEventListener('click', (evt) =>{
-                nextBtnIcon.style.animation = 'double 1s forwards';
+                // nextBtnIcon.style.animation = 'double 1s forwards';
                 main.style.display = DISPLAY_TYPES.NONE;
                 document.querySelector('.ecommerce__admin__nav').style.display = DISPLAY_TYPES.NONE;
                 loader.style.display = DISPLAY_TYPES.BLOCK;
