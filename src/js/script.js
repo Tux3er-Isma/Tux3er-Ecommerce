@@ -305,6 +305,12 @@ function displayAdminDahsboard(){
         let changePageFormInpt = document.createElement('INPUT');
         let changePageFormBtn = document.createElement('BUTTON');
 
+        let mainTitleTwo = document.createElement('H3');
+        const changeContainerTwo = document.createElement('DIV');
+        let changeContainerTwoTxt = document.createElement('P');
+        let changeContainerTwoBtn = document.createElement('BUTTON');
+        let changeContainerTwoBtnIcon = document.createElement('A');
+
 
         //Classes and IDs
         main.classList.add('ecommerce__admin__main');
@@ -322,12 +328,25 @@ function displayAdminDahsboard(){
         changePageFormInpt.classList.add('ecommerce__admin__change-page__form__inpt');
         changePageFormBtn.classList.add('ecommerce__admin__change-page__form__btn');
 
+        mainTitleTwo.classList.add('ecommerce__admin__main__title--two');
+        changeContainerTwo.classList.add('ecommerce__admin__main__change-container--two');
+        changeContainerTwoTxt.classList.add('ecommerce__admin__main__change-container--two__txt');
+        changeContainerTwoBtn.classList.add('ecommerce__admin__main__change-container--two__btn');
+        changeContainerTwoBtnIcon.classList.add('ecommerce__admin__main__change-container--two__btn__icon');
+        changeContainerTwoBtnIcon.classList.add('fa-solid');
+        changeContainerTwoBtnIcon.classList.add('fa-chevron-down');
+
         //Attributes and Content
         mainTitle.textContent = "Settings";
         changePageTitle.textContent = "Change your credentials";
         changePageFormInpt.setAttribute('required', true);
         changePageFormBtn.setAttribute('type', 'submit');
         changePageFormBtn.innerHTML = "Change";
+
+        mainTitleTwo.innerHTML = "General";
+        changeContainerTwoTxt.innerHTML = "Terms and Conditions";
+        changeContainerTwoBtnIcon.setAttribute('href', '/public/assets/Documents/Terms_and_Conditions.pdf');
+        changeContainerTwoBtnIcon.setAttribute('download', 'Terms and Conditions');
 
         //Functions
         function createChangeCredentials(txt){
@@ -446,6 +465,13 @@ function displayAdminDahsboard(){
             return false;
         })
 
+        changeContainerTwoBtnIcon.addEventListener('click', () =>{
+            changeContainerTwoBtnIcon.style.animation = 'icon-down 1s forwards';
+        })
+        changeContainerTwoBtnIcon.addEventListener('animationend', () =>{
+            changeContainerTwoBtnIcon.style.animation = 'finish-icon-down 1s forwards';
+        })
+
         //Calling Functions
         createChangeCredentials("Change Name");
         createChangeCredentials("Change Password");
@@ -459,8 +485,13 @@ function displayAdminDahsboard(){
         changePage.appendChild(changePageReturn);
         changePage.appendChild(changePageTitle);
         changePage.appendChild(changePageForm);
+        changeContainerTwoBtn.appendChild(changeContainerTwoBtnIcon);
+        changeContainerTwo.appendChild(changeContainerTwoTxt);
+        changeContainerTwo.appendChild(changeContainerTwoBtn);
         main.appendChild(mainTitle);
         main.appendChild(changeContainer);
+        main.appendChild(mainTitleTwo);
+        main.appendChild(changeContainerTwo);
         ecommerceAdmin.appendChild(main);
         ecommerceAdmin.appendChild(changePage);
     }
