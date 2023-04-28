@@ -27,6 +27,17 @@ hr{
     width: 350px;
     margin-top: 30px;
     border: 1px solid variables.$grey;
+    align-self: center;
+}
+
+a{
+  color: variables.$black;
+  text-decoration: none;
+
+  &:visited{
+    color: variables.$black;
+    text-decoration: none;
+  }
 }
 
 .active{
