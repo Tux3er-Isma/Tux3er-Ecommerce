@@ -299,6 +299,11 @@ function displayAdminDahsboard(){
         const changePage = document.createElement('DIV');
         let changePageReturn = document.createElement('I');
         let changePageTitle = document.createElement('H2');
+        const changePageForm = document.createElement('FORM');
+        let changePageFormInfo = document.createElement('P');
+        let changePageFormInfoValue = document.createElement('SPAN');
+        let changePageFormInpt = document.createElement('INPUT');
+        let changePageFormBtn = document.createElement('BUTTON');
 
 
         //Classes and IDs
@@ -311,10 +316,18 @@ function displayAdminDahsboard(){
         changePageReturn.classList.add('ecommerce__admin__change-page__return');
         changePageReturn.classList.add('fa-solid');
         changePageReturn.classList.add('fa-arrow-left');
+        changePageForm.classList.add('ecommerce__admin__change-page__form');
+        changePageFormInfo.classList.add('ecommerce__admin__change-page__form__info');
+        changePageFormInfoValue.classList.add('ecommerce__admin__change-page__form__info__value');
+        changePageFormInpt.classList.add('ecommerce__admin__change-page__form__inpt');
+        changePageFormBtn.classList.add('ecommerce__admin__change-page__form__btn');
 
         //Attributes and Content
         mainTitle.textContent = "Settings";
         changePageTitle.textContent = "Change your credentials";
+        changePageFormInpt.setAttribute('required', true);
+        changePageFormBtn.setAttribute('type', 'submit');
+        changePageFormBtn.innerHTML = "Change";
 
         //Functions
         function createChangeCredentials(txt){
@@ -355,16 +368,67 @@ function displayAdminDahsboard(){
                     //     nextBtnIcon.style.animation = 'double-finish 1s forwards';
                     //     nextBtnIcon.classList.add('fa-angles-right');
                     // })
-                    // let changePageTxt = evt.target.parentNode.parentNode.childNodes[0].textContent;
-                    // if (changePageTxt == 'Change Name'){
-                    //     console.log(1);
-                    // } else if (changePageTxt == 'Change Password'){
-                    //     console.log(2);
-                    // } else {
-                    //     console.log(3);
-                    // }
+                    let changePageTxt = evt.target.parentNode.parentNode.childNodes[0].textContent;
+                    let changePageTxtArr = changePageTxt.split(" ");
+                    changePageFormInfo.innerHTML = `Your actual ${changePageTxtArr[1]} is: `;
+                    changePageFormInpt.setAttribute('placeholder', `Change your ${changePageTxtArr[1]}`)
+                    if (changePageTxtArr[1] == 'Name'){
+                        console.log(1);
+                        changePageFormInfoValue.innerHTML = username;
+                        console.log(changePageFormInfoValue.innerHTML);
+                        changePageFormBtn.addEventListener('click', () =>{
+                            username = changePageFormInpt.value;
+                            while (ecommerceAdmin.firstChild){
+                                ecommerceAdmin.removeChild(ecommerceAdmin.firstChild);
+                            }
+                            ecommerceAdmin.style.display = 'none';
+                            loader.style.display = 'block';
+                            setTimeout(() =>{
+                                loader.style.display = 'none';
+                                ecommerceMenu.style.display = 'flex';
+                                ecommerceMain.style.display = 'flex';
+                            }, 600)
+                        })
+                    } else if (changePageTxtArr[1] == 'Password'){
+                        console.log(2);
+                        changePageFormInfoValue.innerHTML = password;
+                        console.log(password);
+                        changePageFormBtn.addEventListener('click', () =>{
+                            password = changePageFormInpt.value;
+                            while (ecommerceAdmin.firstChild){
+                                ecommerceAdmin.removeChild(ecommerceAdmin.firstChild);
+                            }
+                            ecommerceAdmin.style.display = 'none';
+                            loader.style.display = 'block';
+                            setTimeout(() =>{
+                                loader.style.display = 'none';
+                                ecommerceMenu.style.display = 'flex';
+                                ecommerceMain.style.display = 'flex';
+                            }, 600)
+                        })
+                    } else if (changePageTxtArr[1] == 'Email') {
+                        console.log(3);
+                        changePageFormInfoValue.innerHTML = email;
+                        changePageFormBtn.addEventListener('click', () =>{
+                            email = changePageFormInpt.value;
+                            while (ecommerceAdmin.firstChild){
+                                ecommerceAdmin.removeChild(ecommerceAdmin.firstChild);
+                            }
+                            ecommerceAdmin.style.display = 'none';
+                            loader.style.display = 'block';
+                            setTimeout(() =>{
+                                loader.style.display = 'none';
+                                ecommerceMenu.style.display = 'flex';
+                                ecommerceMain.style.display = 'flex';
+                            }, 600)
+                        })
+                    }
                 }, 400)
             })
+        }
+
+        function submitChangePageFormData(){
+            changePageFormInpt.value = '';
         }
 
         //Event Listeners
@@ -378,14 +442,23 @@ function displayAdminDahsboard(){
             }, 400)
         })
 
+        changePageForm.addEventListener('submit', (evt) =>{
+            return false;
+        })
+
         //Calling Functions
         createChangeCredentials("Change Name");
         createChangeCredentials("Change Password");
         createChangeCredentials("Change Email");
 
         //Append Child
+        changePageForm.appendChild(changePageFormInfo);
+        changePageForm.appendChild(changePageFormInfoValue);
+        changePageForm.appendChild(changePageFormInpt);
+        changePageForm.appendChild(changePageFormBtn);
         changePage.appendChild(changePageReturn);
         changePage.appendChild(changePageTitle);
+        changePage.appendChild(changePageForm);
         main.appendChild(mainTitle);
         main.appendChild(changeContainer);
         ecommerceAdmin.appendChild(main);
