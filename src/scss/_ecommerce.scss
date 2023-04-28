@@ -128,9 +128,11 @@
     }
 
     .ecommerce__admin{
+        overflow-x: hidden;
         display: none;
         flex-direction: column;
         min-height: 100vh;
+        scroll-snap-type: x mandatory;
 
         .ecommerce__admin__nav{
             box-shadow: 1px 1px 10px variables.$grey;
@@ -139,16 +141,16 @@
             flex-direction: column;
             width: 100vw;
             height: 200px;
-            align-items: center;
 
             .ecommerce__admin__nav__return{
-                position: absolute;
-                left: 20px;
-                top: 20px;
+                transform: translateX(20px);
+                transform: translateY(20px);
+                margin-left: 20px;
             }
 
             .ecommerce__admin__nav__title{
                 margin-top: 20px;
+                text-align: center;
             }
 
             .ecommerce__admin__nav__credentials{
@@ -172,7 +174,6 @@
                     }
 
                     .ecommerce__admin__nav__credentials__img-container__inpt-container{
-                        position: absolute;
                         width: 50px;
                         height: 50px;
                         border-radius: 50%;
@@ -187,8 +188,9 @@
                         }
 
                         .ecommerce__admin__nav__credentials__img-container__inpt-container__icon{
-                            position: absolute;
+                            position: relative;
                             opacity: .4;
+                            transform: translateX(-50px);
                         }
                     }
                 }
@@ -208,7 +210,8 @@
 
         .ecommerce__admin__main{
             margin-top: 20px;
-
+            scroll-snap-align: center;
+            
             .ecommerce__admin__main__title{
                 margin-left: 20px;
                 margin-bottom: 20px;
@@ -247,31 +250,50 @@
                         border-radius: 50%;
                         overflow: hidden;
 
-                        .ecommerce__admin__main__change-container__container__next-btn__icon{
-                            transition: all .5s;
+                        // .ecommerce__admin__main__change-container__container__next-btn__icon{
+                        //     transition: all .5s;
 
-                            @keyframes double{
-                                0%{
-                                    transform: translateX(0px);
-                                }
+                        //     @keyframes double{
+                        //         0%{
+                        //             transform: translateX(0px);
+                        //         }
 
-                                100%{
-                                    transform: translateX(50px);
-                                }
-                            }
+                        //         100%{
+                        //             transform: translateX(50px);
+                        //         }
+                        //     }
 
-                            @keyframes double-finish{
-                                0%{
-                                    transform: translateX(-50px);
-                                }
+                        //     @keyframes double-finish{
+                        //         0%{
+                        //             transform: translateX(-50px);
+                        //         }
 
-                                100%{
-                                    transform: translateX(0px);
-                                }
-                            }
-                        }
+                        //         100%{
+                        //             transform: translateX(0px);
+                        //         }
+                        //     }
+                        // }
                     }
                 }
+            }
+        }
+
+        .ecommerce__admin__change-page{
+            display: none;
+            scroll-snap-align: center;
+            width: 100vw;
+            background-color: variables.$white;
+            flex-direction: column;
+
+            .ecommerce__admin__change-page__title{
+                margin-top: 100px;
+                align-self: center;
+            }
+
+            .ecommerce__admin__change-page__return{
+                position: absolute;
+                left: 20px;
+                top: 20px;
             }
         }
     }
