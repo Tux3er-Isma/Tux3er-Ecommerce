@@ -12,6 +12,7 @@ let email;
 let password;
 let userimg;
 let imgUrl;
+let arrayContainer = [];
 
 //Log Page
 const logPage = document.querySelector('.log-page');
@@ -79,6 +80,7 @@ const ecommerceMain = document.querySelector('.ecommerce__main');
 let ecommerceMainTitle = document.querySelector('.ecommerce__main__title');
 const ecommerceMainProductsContainer = document.querySelector('.ecommerce__main__products-container');
 let ecommerceAdminIcon = document.querySelector('.ecommerce-menu__list-container__item--1');
+let ecommerceAdminIconTwo = document.querySelector('.ecommerce-menu__list-container__item--2');
 const ecommerceAdmin = document.querySelector('.ecommerce__admin');
 
 
@@ -498,6 +500,56 @@ function displayAdminDahsboard(){
     displayAdminNav();
     displayAdminMain();
 }
+function displayCartDashboard(){
+    //Appearing and Hidding elements
+    ecommerceMenu.style.display = DISPLAY_TYPES.NONE;
+    ecommerceMain.style.display = DISPLAY_TYPES.NONE;
+    loader.style.display = DISPLAY_TYPES.BLOCK;
+
+    setTimeout(() =>{
+        loader.style.display = DISPLAY_TYPES.NONE;
+        buyDashboard.style.display = DISPLAY_TYPES.FLEX;
+    }, 400)
+
+    //Variables
+    const buyDashboard = document.createElement('DIV');
+    const productsContainer = document.createElement('DIV');
+    let title = document.createElement('H2');
+    let buyReturn = document.createElement('I');
+
+    //Classes
+    buyDashboard.classList.add('ecommerce__buy');
+    productsContainer.classList.add('ecommerce__buy__products-container');
+    title.classList.add('ecommerce__buy__title');
+    buyReturn.classList.add('ecommerce__buy__return');
+    buyReturn.classList.add('fa-solid');
+    buyReturn.classList.add('fa-arrow-left');
+
+    //Content and Attributes
+    title.innerHTML = "Added to Cart"
+
+    //Childs
+    buyDashboard.appendChild(buyReturn);
+    buyDashboard.appendChild(title);
+    buyDashboard.appendChild(productsContainer);
+    ecommerce.appendChild(buyDashboard);
+
+    //Functions
+    for (let i = 0; i < arrayContainer.length; i++){
+        productsContainer.appendChild(arrayContainer[i]);
+    }
+
+    //Event Listeners
+    buyReturn.addEventListener('click', () =>{
+        buyDashboard.style.display = DISPLAY_TYPES.NONE;
+        loader.style.display = DISPLAY_TYPES.BLOCK;
+        setTimeout(() =>{
+            loader.style.display = DISPLAY_TYPES.NONE;
+            ecommerceMenu.style.display = DISPLAY_TYPES.FLEX;
+            ecommerceMain.style.display = DISPLAY_TYPES.FLEX;
+        }, 400)
+    })
+}
 
 function displayEcommerce(){
     loader.style.display = 'block';
@@ -634,6 +686,7 @@ const getEcommerceProducts = async () =>{
 
                 //Giving them classes
                 container.classList.add('ecommerce__main__products-container__item-container');
+                container.id = res[i].id;
                 description.classList.add('ecommerce__main__products-container__item-container__description');
                 descriptionName.classList.add('ecommerce__main__products-container__item-container__description__name');
                 descriptionText.classList.add('ecommerce__main__products-container__item-container__description__text');
@@ -666,6 +719,50 @@ const getEcommerceProducts = async () =>{
 
                 //Event Listeners
                 ecommerceAdminIcon.addEventListener('click', displayAdminDahsboard);
+                ecommerceAdminIconTwo.addEventListener('click', displayCartDashboard);
+
+                trolley.addEventListener('click', (evt) =>{
+                    let img = evt.target.parentNode.parentNode.childNodes[1].src;
+                    let productName = evt.target.parentNode.parentNode.childNodes[0].childNodes[0].innerHTML;
+                    let price = evt.target.parentNode.parentNode.childNodes[2].childNodes[0].innerHTML;
+                    let productId = evt.target.parentNode.parentNode.id;
+
+                    function createCartProductContainer(){
+                        //Variables
+                        const container = document.createElement('DIV');
+                        let productImg = document.createElement('IMG');
+                        let title = document.createElement('H3');
+                        let productPrice = document.createElement('P');
+
+                        //Classes
+                        container.classList.add('ecommerce__buy__products-container__container');
+                        productImg.classList.add('ecommerce__buy__products-container__container__img');
+                        title.classList.add('ecommerce__buy__products-container__container__title');
+                        productPrice.classList.add('ecommerce__buy__products-container__container__price');
+                    
+                        //Content and Attributes
+                        productImg.setAttribute('src', img);
+                        productImg.setAttribute('alt', productName);
+                        title.innerHTML = productName;
+                        productPrice.innerHTML = price;
+                
+                        //Append Child
+                        container.appendChild(productImg);
+                        container.appendChild(title);
+                        container.appendChild(productPrice);
+                        
+                        arrayContainer.push(container);
+                    }
+
+                    createCartProductContainer();
+
+                })
+
+                //Scroll Reveal
+                sr.reveal(container, {
+                    delay: 300,
+                    reset: true
+                })
             }
         })
     }).catch((err) =>{
