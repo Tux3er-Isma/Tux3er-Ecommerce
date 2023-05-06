@@ -423,10 +423,11 @@
                 width: 90vw;
                 border: 2px solid variables.$black;
                 border-radius: 20px;
-                padding: 10px;
+                height: 100px;
 
                 .ecommerce__buy__products-container__container__img{
                     width: 50px;
+                    margin-left: 10px;
                 }
 
                 .ecommerce__buy__products-container__container__title{
@@ -437,6 +438,7 @@
                 .ecommerce__buy__products-container__container__price{
                     color: variables.$red;
                     font-weight: bold;
+                    margin-right: 10px;
                 }
             }
         }
