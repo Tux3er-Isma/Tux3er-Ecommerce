@@ -122,3 +122,28 @@ input::placeholder{
 .fa-solid{
   font-size: 25px;
 }
+
+.succesful-container{
+  position: fixed;
+  top: 40px;
+  width: 90vw;
+  height: 150px;
+  align-items: center;
+  background-color: variables.$succesful-bg;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-around;
+  color: variables.$succesful-color;
+
+  @keyframes succesful{
+    0%{
+      opacity: 1;
+      display: flex;
+    }
+
+    100%{
+      opacity: 0;
+      display: none;
+    }
+  }
+}
