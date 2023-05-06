@@ -722,6 +722,28 @@ const getEcommerceProducts = async () =>{
                 ecommerceAdminIconTwo.addEventListener('click', displayCartDashboard);
 
                 trolley.addEventListener('click', (evt) =>{
+                    const succsefulContainer = document.createElement('DIV');
+                    let succesfulTitle = document.createElement('H2');
+                    let succesfulIcon = document.createElement('I');
+
+                    succsefulContainer.classList.add('succesful-container');
+                    succesfulTitle.classList.add('succesful-container__title');
+                    succesfulIcon.classList.add('succesful-container__icon');
+                    succesfulIcon.classList.add('fa-solid');
+                    succesfulIcon.classList.add('fa-check');
+
+                    succesfulTitle.innerHTML = "Product Added to cart";
+
+                    succsefulContainer.appendChild(succesfulTitle);
+                    succsefulContainer.appendChild(succesfulIcon);
+                    body.appendChild(succsefulContainer);
+
+                        succsefulContainer.style.animation = `succesful 2s forwards`;
+
+                        setTimeout(() =>{
+                            succsefulContainer.style.display = DISPLAY_TYPES.NONE;
+                        }, 2000)
+
                     let img = evt.target.parentNode.parentNode.childNodes[1].src;
                     let productName = evt.target.parentNode.parentNode.childNodes[0].childNodes[0].innerHTML;
                     let price = evt.target.parentNode.parentNode.childNodes[2].childNodes[0].innerHTML;
