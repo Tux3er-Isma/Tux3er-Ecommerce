@@ -13,6 +13,7 @@ let password;
 let userimg;
 let imgUrl;
 let arrayContainer = [];
+let arrayId = [];
 
 //Log Page
 const logPage = document.querySelector('.log-page');
@@ -81,6 +82,7 @@ let ecommerceMainTitle = document.querySelector('.ecommerce__main__title');
 const ecommerceMainProductsContainer = document.querySelector('.ecommerce__main__products-container');
 let ecommerceAdminIcon = document.querySelector('.ecommerce-menu__list-container__item--1');
 let ecommerceAdminIconTwo = document.querySelector('.ecommerce-menu__list-container__item--2');
+let ecommerceAdminIconThree = document.querySelector('.ecommerce-menu__list-container__item--3')
 const ecommerceAdmin = document.querySelector('.ecommerce__admin');
 
 
@@ -550,6 +552,92 @@ function displayCartDashboard(){
         }, 400)
     })
 }
+function displatChatDashboard(){
+    //Appearing and Hidding elements
+    ecommerceMenu.style.display = DISPLAY_TYPES.NONE;
+    ecommerceMain.style.display = DISPLAY_TYPES.NONE;
+    loader.style.display = DISPLAY_TYPES.BLOCK;
+    
+    setTimeout(() =>{
+        loader.style.display = DISPLAY_TYPES.NONE;
+        chatDasboard.style.display = DISPLAY_TYPES.FLEX;
+    }, 400)
+
+    //Variables
+    const chatDasboard = document.createElement('DIV');
+    let chatReturn = document.createElement('I');
+    let title = document.createElement('H2');
+    const chatsContainer = document.createElement('DIV');
+
+    //Classes
+    chatDasboard.classList.add('ecommerce__chat-dashboard');
+    chatReturn.classList.add('ecommerce__chat-dashboard__return');
+    chatReturn.classList.add('fa-solid');
+    chatReturn.classList.add('fa-arrow-left');
+    title.classList.add('ecommerce__chat-dashboard__title');
+    chatsContainer.classList.add('ecommerce__chat-dashboard__chats-container');
+
+    //Content and Attributes
+    title.innerHTML = "Chat Conversations";
+
+    //Fetch
+    fetch('/src/js/sellers.json').then((res) =>{
+        res.json().then((res) =>{
+            for (let i = 0; i < arrayId.length; i++){
+                //Variables
+                const container = document.createElement('DIV');
+                let productImg = document.createElement('IMG');
+                const sellerInfoContainer = document.createElement('DIV');
+                let sellerImg = document.createElement('IMG');
+                let sellerName = document.createElement('H3');
+                let sellerNick = document.createElement('H3');
+
+                //Clases
+                container.classList.add('ecommerce__chat-dashboard__chats-container__container');
+                productImg.classList.add('ecommerce__chat-dashboard__chats-container__container__product-img');
+                sellerInfoContainer.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container');
+                sellerImg.classList.add('ecommerce__chat-dashboard__chats-container__container__img');
+                sellerName.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__name');
+                sellerNick.classList.add('ecommerce__chats-dashboard__chats-container__container__info-container__nick');
+
+                //Attributes and Content
+                productImg.setAttribute('src', res[arrayId[i]].productImg);
+                productImg.setAttribute('alt', 'Product');
+                sellerImg.setAttribute('src', res[arrayId[i]].img);
+                sellerImg.setAttribute('alt', 'Seller');
+                sellerName.innerHTML = res[arrayId[i]].name;
+                sellerNick.innerHTML = res[arrayId[i]].nickname;
+
+                console.log(arrayId[i]);
+
+                //Append Child
+                sellerInfoContainer.appendChild(sellerName);
+                sellerInfoContainer.appendChild(sellerNick);
+                container.appendChild(productImg);
+                container.appendChild(sellerImg);
+                container.appendChild(sellerInfoContainer);
+                chatsContainer.appendChild(container);
+            }
+        })
+    })
+
+    //Append Child
+    chatDasboard.appendChild(chatReturn);
+    chatDasboard.appendChild(title);
+    chatDasboard.appendChild(chatsContainer);
+    ecommerce.appendChild(chatDasboard);
+
+    //Event Listeners
+    chatReturn.addEventListener('click', () =>{
+        chatDasboard.style.display = DISPLAY_TYPES.NONE;
+        loader.style.display = DISPLAY_TYPES.BLOCK;
+        setTimeout(() =>{
+            loader.style.display = DISPLAY_TYPES.NONE;
+            ecommerceMenu.style.display = DISPLAY_TYPES.FLEX;
+            ecommerceMain.style.display = DISPLAY_TYPES.FLEX;
+        }, 400)
+    })
+}
 
 function displayEcommerce(){
     loader.style.display = 'block';
@@ -675,44 +763,146 @@ const getEcommerceProducts = async () =>{
             for (let i = 0; i < 20; i++){
                 //Creating Elements
                 const container = document.createElement('DIV');
+                const iconContainer = document.createElement('DIV');
+                const iconContainerPartTwo = document.createElement('DIV');
+                let lb = document.createElement('HR');
                 const description = document.createElement('DIV');
                 let descriptionName = document.createElement('H3');
-                let descriptionText = document.createElement('P');
+                const descriptionPartTwo = document.createElement('DIV');
+                let price = document.createElement('P');
+                const starContainer = document.createElement('DIV');
+                let star = document.createElement('I');
+                let rate = document.createElement('P');
                 let img = document.createElement('IMG');
                 const nav = document.createElement('DIV');
-                let price = document.createElement('P');
                 let trolley = document.createElement('I');
+                let heart = document.createElement('I');
                 let chat = document.createElement('I');
+                const containerOptions = document.createElement('DIV');
+                const counterContainer = document.createElement('DIV');
+                let plus = document.createElement('BUTTON');
+                let num = document.createElement('P');
+                let minus = document.createElement('BUTTON');
+                const trolleyContainer = document.createElement('DIV');
+                let trolleyIcon = document.createElement('I');
+                let trolleyText = document.createElement('P');
+                const totalContainer = document.createElement('DIV');
+                let totalText = document.createElement('P');
+                let totalNum = document.createElement('P');
+                const about = document.createElement('DIV');
+                let aboutIcon = document.createElement('I');
+                let aboutTtite = document.createElement('P');
+                let aboutNext = document.createElement('I');
+                const descriptionContainer = document.createElement('DIV');
+                const descriptionNav = document.createElement('NAV');
+                let descriptionNavTitle = document.createElement('P');
+                let descriptionNavIcon = document.createElement('I');
+                let descripitonText = document.createElement('P');
 
                 //Giving them classes
                 container.classList.add('ecommerce__main__products-container__item-container');
                 container.id = res[i].id;
-                description.classList.add('ecommerce__main__products-container__item-container__description');
-                descriptionName.classList.add('ecommerce__main__products-container__item-container__description__name');
-                descriptionText.classList.add('ecommerce__main__products-container__item-container__description__text');
+                iconContainer.classList.add('ecommerce__main__products-container__item-container__nav__icon-container');
+                iconContainerPartTwo.classList.add('ecommerce__main__products-container__item-container__nav__icon-container__part--two');
+                description.classList.add('ecommerce__main__products-container__item-container__nav__description');
+                descriptionName.classList.add('ecommerce__main__products-container__item-container__nav__description__name');
+                descriptionPartTwo.classList.add('ecommerce__main__products-container__item-container__nav__description__part--two');
+                price.classList.add('ecommerce__main__products-container__item-container__nav__description__part--two__price');
+                starContainer.classList.add('ecommerce__main__products-container__item-container__nav__description__part--two__star-container');
+                star.classList.add('ecommerce__main__products-container__item-container__nav__description__part--two__star-container__star');
+                star.classList.add('fa-regular');
+                star.classList.add('fa-star');
+                rate.classList.add('ecommerce__main__products-container__item-container__nav__description__part--two__star-container__rate');
                 img.classList.add('ecommerce__main__products-container__item-container__img');
                 nav.classList.add('ecommerce__main__products-container__item-container__nav');
-                price.classList.add('ecommerce__main__products-container__item-container__nav__price');
-                trolley.classList.add('ecommerce__main__products-container__item-container__nav__trolley');
+                trolley.classList.add('ecommerce__main__products-container__item-container__nav__icon-container__part--two__trolley');
                 trolley.classList.add('fa-solid');
                 trolley.classList.add('fa-cart-shopping');
-                chat.classList.add('ecommerce__main__products-container__item-container__nav__chat');
+                heart.classList.add('ecommerce__main__products-container__item-container__nav__icon-container__part--two__heart');
+                heart.classList.add('fa-regular');
+                heart.classList.add('fa-heart')
+                chat.classList.add('ecommerce__main__products-container__item-container__nav__icon-container__chat');
                 chat.classList.add('fa-solid');
                 chat.classList.add('fa-comment');
+                lb.classList.add('ecommerce__main__products-container__item-container__nav__hr');
+                containerOptions.classList.add('ecommerce__main__products-container__item-container__nav__description__options');
+                counterContainer.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter');
+                plus.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__plus');
+                num.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__num');
+                minus.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__minus');
+                trolleyContainer.classList.add('ecommerce__main__products-container__item-container__nav__description__options__trolley-container');
+                trolleyIcon.classList.add('ecommerce__main__products-container__item-container__nav__description__options__trolley-container__icon');
+                trolleyIcon.classList.add('fa-solid');
+                trolleyIcon.classList.add('fa-cart-shopping');
+                trolleyText.classList.add('ecommerce__main__products-container__item-container__nav__description__options__trolley-container__text');
+                totalContainer.classList.add('ecommerce__main__products-container__item-container__nav__description__total-container');
+                totalText.classList.add('ecommerce__main__products-container__item-container__nav__description__total-container__text');
+                totalNum.classList.add('ecommerce__main__products-container__item-container__nav__description__total-container__num');
+                about.classList.add('product-container__nav__description__about');
+                aboutIcon.classList.add('product-container__nav__description__about__icon');
+                aboutIcon.classList.add('fa-solid');
+                aboutIcon.classList.add('fa-circle-info');
+                aboutTtite.classList.add('product-container__nav__description__about__title');
+                aboutNext.classList.add('product-container__nav__description__about__next');
+                aboutNext.classList.add('fa-solid');
+                aboutNext.classList.add('fa-chevron-right');
+                descriptionContainer.classList.add('description');
+                descriptionNav.classList.add('description__nav');
+                descriptionNavTitle.classList.add('description__nav__title');
+                descriptionNavIcon.classList.add('description__nav__icon');
+                descriptionNavIcon.classList.add('fa-solid');
+                descriptionNavIcon.classList.add('fa-chevron-down');
+                descripitonText.classList.add('description__text');
                 
                 //Giving them content
                 descriptionName.innerHTML = res[i].title;
-                descriptionText.innerHTML = res[i].description;
                 img.setAttribute('src', res[i].image);
-                price.innerHTML = res[i].price + '$';
+                price.innerHTML = parseInt(res[i].price) + '$';
+                totalNum.innerHTML = parseInt(res[i].price) + '$';
+                rate.innerHTML = Math.floor(Math.random()*5);
+                heart.setAttribute('tabindex', '0');
+                star.setAttribute('tabindex', '0');
+                plus.innerHTML = `+`;
+                num.innerHTML = '1';
+                minus.innerHTML = `-`;
+                trolleyText.innerHTML = 'ADD';
+                totalText.innerHTML = "TOTAL";
+                aboutTtite.innerHTML = "About the product";
+                descriptionNavTitle.innerHTML = "Info about the product";
+                descripitonText.innerHTML = res[i].description;
 
                 //Giving them parents
+                descriptionNav.appendChild(descriptionNavTitle);
+                descriptionNav.appendChild(descriptionNavIcon);
+                descriptionContainer.appendChild(descriptionNav);
+                descriptionContainer.appendChild(descripitonText);
+                about.appendChild(aboutIcon);
+                about.appendChild(aboutTtite);
+                about.appendChild(aboutNext);
+                totalContainer.appendChild(totalText);
+                totalContainer.appendChild(totalNum);
+                trolleyContainer.appendChild(trolleyIcon);
+                trolleyContainer.appendChild(trolleyText);
+                counterContainer.appendChild(plus);
+                counterContainer.appendChild(num);
+                counterContainer.appendChild(minus)
+                containerOptions.appendChild(counterContainer);
+                containerOptions.appendChild(trolleyContainer);
+                starContainer.appendChild(star);
+                starContainer.appendChild(rate);
+                descriptionPartTwo.appendChild(price);
+                descriptionPartTwo.appendChild(starContainer);
                 description.appendChild(descriptionName);
-                description.appendChild(descriptionText);
-                nav.appendChild(price);
-                nav.appendChild(trolley);
-                nav.appendChild(chat);
-                container.appendChild(description);
+                description.appendChild(containerOptions);
+                description.appendChild(totalContainer);
+                description.appendChild(descriptionPartTwo);
+                iconContainer.appendChild(chat);
+                iconContainerPartTwo.appendChild(trolley);
+                iconContainerPartTwo.appendChild(heart);
+                iconContainer.appendChild(iconContainerPartTwo);
+                nav.appendChild(iconContainer);
+                nav.appendChild(lb);
+                nav.appendChild(description);
                 container.appendChild(img);
                 container.appendChild(nav);
                 ecommerceMainProductsContainer.appendChild(container);
@@ -720,6 +910,7 @@ const getEcommerceProducts = async () =>{
                 //Event Listeners
                 ecommerceAdminIcon.addEventListener('click', displayAdminDahsboard);
                 ecommerceAdminIconTwo.addEventListener('click', displayCartDashboard);
+                ecommerceAdminIconThree.addEventListener('click', displatChatDashboard);
 
                 trolley.addEventListener('click', (evt) =>{
                     const succsefulContainer = document.createElement('DIV');
@@ -744,10 +935,12 @@ const getEcommerceProducts = async () =>{
                             succsefulContainer.style.display = DISPLAY_TYPES.NONE;
                         }, 2000)
 
-                    let img = evt.target.parentNode.parentNode.childNodes[1].src;
-                    let productName = evt.target.parentNode.parentNode.childNodes[0].childNodes[0].innerHTML;
-                    let price = evt.target.parentNode.parentNode.childNodes[2].childNodes[0].innerHTML;
-                    let productId = evt.target.parentNode.parentNode.id;
+                    let img = evt.target.parentNode.parentNode.parentNode.parentNode.childNodes[0].src;
+                    let productName = evt.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[0].innerHTML;
+                    let price = evt.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[1].childNodes[0].innerHTML;
+                    let productId = evt.target.parentNode.parentNode.parentNode.parentNode.id;
+
+                    console.log(evt.target.parentNode.parentNode.parentNode.parentNode);
 
                     function createCartProductContainer(){
                         //Variables
@@ -766,7 +959,7 @@ const getEcommerceProducts = async () =>{
                         productImg.setAttribute('src', img);
                         productImg.setAttribute('alt', productName);
                         title.innerHTML = productName;
-                        productPrice.innerHTML = price;
+                        productPrice.innerHTML = parseInt(res[i].price) + '$';
                 
                         //Append Child
                         container.appendChild(productImg);
@@ -777,7 +970,172 @@ const getEcommerceProducts = async () =>{
                     }
 
                     createCartProductContainer();
+                    evt.stopPropagation();
 
+                })
+
+                chat.addEventListener('click', (evt) =>{
+                    let productId = evt.target.parentNode.parentNode.id;
+                    productId = parseInt(productId);
+                    productId = productId - 1
+                    console.log(productId);
+                    arrayId.push(productId);
+                    console.log(arrayId);
+                    evt.stopPropagation();
+                })
+
+                heart.addEventListener('focus', (evt) =>{
+                    heart.classList.remove('fa-regular');
+                    heart.classList.add('fa-solid')
+                    evt.stopPropagation();
+                })
+
+                heart.addEventListener('blur', (evt) =>{
+                    heart.classList.add('fa-regular');
+                    heart.classList.remove('fa-solid');
+                })
+
+                star.addEventListener('focus', (evt) =>{
+                    star.classList.remove('fa-regular');
+                    star.classList.add('fa-solid')
+                    evt.stopPropagation();
+                })
+
+                star.addEventListener('blur', (evt) =>{
+                    star.classList.add('fa-regular');
+                    star.classList.remove('fa-solid');
+                    evt.stopPropagation();
+                })
+
+                container.addEventListener('click', () =>{
+                //Variables
+                let numPrice = price.innerHTML.split('$')[0];
+                let numInt = parseInt(num.innerHTML);
+                    
+                //Parse Float
+                numPrice = parseInt(numPrice);
+                console.log(res[i].price);
+                console.log(price.innerHTML);
+                                        
+                //Event Listeners
+                plus.addEventListener('click', () =>{
+                    numInt += 1;
+                    num.innerHTML = numInt;
+                    price.innerHTML = parseInt(price.innerHTML.split('$')[0]) + parseInt(res[i].price) + '$';
+                    totalNum.innerHTML = price.innerHTML;
+                })
+                minus.addEventListener('click', () =>{
+                    numInt -= 1;
+                    num.innerHTML = numInt;
+                    price.innerHTML = parseInt(price.innerHTML.split('$')[0]) - parseInt(res[i].price) + '$';
+                    totalNum.innerHTML = price.innerHTML;
+                })
+                    //Hidding and Appearing elements
+                    trolley.style.display = 'none';
+                    iconContainer.style.display = 'none';
+                    loader.style.display = DISPLAY_TYPES.BLOCK;
+                    ecommerceMain.style.display = DISPLAY_TYPES.NONE;
+                    ecommerceMenu.style.display = DISPLAY_TYPES.NONE;
+                    setTimeout(() =>{
+                        loader.style.display = DISPLAY_TYPES.NONE;
+                        productContainer.style.display = DISPLAY_TYPES.FLEX;
+                    }, 400);
+                    //Variables
+                    const productContainer = document.createElement('DIV');
+                    let containerReturn = document.createElement('I');
+                    let containerImg = document.createElement('IMG');
+                    const containerNav = document.createElement('NAV');
+
+                    //Classes
+                    productContainer.classList.add('product-container');
+                    containerReturn.classList.add('product-container__return');
+                    containerReturn.classList.add('fa-solid');
+                    containerReturn.classList.add('fa-arrow-left');
+                    containerImg.classList.add('product-container__img');
+                    containerNav.classList.add('product-container__nav');
+                    description.classList.add('product-container__nav__description');
+                    descriptionPartTwo.classList.add('product-container__nav__description__part--two');
+                    nav.classList.add('product-container__nav')
+                    containerOptions.classList.add('product-container__nav__description__options');
+                    counterContainer.classList.add('product-container__nav__description__options__counter')
+                    trolleyContainer.classList.add('product-container__nav__description__options__trolley-container');
+                    totalContainer.classList.add('product-container__nav__description__total-container');
+
+                    //Content and Attributes
+                    containerImg.setAttribute('src', res[i].image);
+                    containerImg.setAttribute('alt', 'Product');
+                    heart.setAttribute('tabindex', 0);
+
+                    //Append Child
+                    description.appendChild(about);
+                    productContainer.appendChild(containerReturn);
+                    productContainer.appendChild(containerImg);
+                    productContainer.appendChild(nav);
+                    body.appendChild(productContainer);
+                    body.appendChild(descriptionContainer);
+
+                    //Event Listeners
+                    aboutNext.addEventListener('click', () =>{
+                        productContainer.style.opacity = '.5'
+                        descriptionContainer.style.display = DISPLAY_TYPES.BLOCK;
+                        descriptionContainer.style.animation = 'appear 1s forwards';
+                        descriptionContainer.addEventListener('animationend', () =>{
+                            descriptionContainer.style.position = 'fixed';
+                        })
+                    })
+
+                    descriptionNavIcon.addEventListener('click', () =>{
+                        productContainer.style.opacity = '1';
+                        descriptionContainer.style.animation = 'disappear 1s forwards';
+                    })
+
+                    containerReturn.addEventListener('click', () =>{
+                        loader.style.display = DISPLAY_TYPES.BLOCK;
+                        productContainer.removeChild(nav);
+                        container.appendChild(nav);
+
+                        productContainer.classList.remove('product-container');
+                        containerReturn.classList.remove('product-container__return');
+                        containerReturn.classList.remove('fa-solid');
+                        containerReturn.classList.remove('fa-arrow-left');
+                        containerImg.classList.remove('product-container__img');
+                        containerNav.classList.remove('product-container__nav');
+                        lb.classList.remove('product-container__nav__lb');
+                        description.classList.remove('product-container__nav__description');
+                        descriptionPartTwo.classList.remove('product-container__nav__description__part--two');
+                        nav.classList.remove('product-container__nav')
+                        containerOptions.classList.remove('product-container__nav__description__options');
+                        counterContainer.classList.remove('product-container__nav__description__options__counter')
+                        trolleyContainer.classList.remove('product-container__nav__description__options__trolley-container');
+                        totalContainer.classList.remove('product-container__nav__description__total-container');
+                        
+                        about.style.display = 'none';
+                        iconContainer.style.display = 'flex';
+                        productContainer.style.display = 'none';
+                        setTimeout(() =>{
+                            loader.style.display = DISPLAY_TYPES.NONE;
+                            trolley.style.display = 'inline-block';
+                            ecommerceMain.style.display = DISPLAY_TYPES.FLEX;
+                            ecommerceMenu.style.display = DISPLAY_TYPES.FLEX;
+                        }, 400);
+                    })
+                    // //Appearing and Hidding elements
+                    // trolley.style.display = 'none';
+                    // containerOptions.style.display = DISPLAY_TYPES.FLEX;
+                    // about.style.display = DISPLAY_TYPES.FLEX;
+                    // totalContainer.style.display = DISPLAY_TYPES.FLEX;
+                    // sr.reveal(counterContainer, {
+                    //     delay: 400
+                    // })
+                    // sr.reveal(trolleyContainer, {
+                    //     delay: 700
+                    // })
+                    // sr.reveal(totalContainer, {
+                    //     delay: 1000
+                    // })
+                    // sr.reveal(about, {
+                    //     delay: 1300
+                    // })
                 })
 
                 //Scroll Reveal
