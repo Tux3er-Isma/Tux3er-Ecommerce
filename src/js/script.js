@@ -779,9 +779,6 @@ const getEcommerceProducts = async () =>{
                 let heart = document.createElement('I');
                 let chat = document.createElement('I');
                 const containerOptions = document.createElement('DIV');
-                const counterContainer = document.createElement('DIV');
-                let plus = document.createElement('BUTTON');
-                let num = document.createElement('P');
                 let minus = document.createElement('BUTTON');
                 const trolleyContainer = document.createElement('DIV');
                 let trolleyIcon = document.createElement('I');
@@ -826,10 +823,6 @@ const getEcommerceProducts = async () =>{
                 chat.classList.add('fa-comment');
                 lb.classList.add('ecommerce__main__products-container__item-container__nav__hr');
                 containerOptions.classList.add('ecommerce__main__products-container__item-container__nav__description__options');
-                counterContainer.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter');
-                plus.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__plus');
-                num.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__num');
-                minus.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__minus');
                 trolleyContainer.classList.add('ecommerce__main__products-container__item-container__nav__description__options__trolley-container');
                 trolleyIcon.classList.add('ecommerce__main__products-container__item-container__nav__description__options__trolley-container__icon');
                 trolleyIcon.classList.add('fa-solid');
@@ -862,9 +855,6 @@ const getEcommerceProducts = async () =>{
                 rate.innerHTML = Math.floor(Math.random()*5);
                 heart.setAttribute('tabindex', '0');
                 star.setAttribute('tabindex', '0');
-                plus.innerHTML = `+`;
-                num.innerHTML = '1';
-                minus.innerHTML = `-`;
                 trolleyText.innerHTML = 'ADD';
                 totalText.innerHTML = "TOTAL";
                 aboutTtite.innerHTML = "About the product";
@@ -883,11 +873,6 @@ const getEcommerceProducts = async () =>{
                 totalContainer.appendChild(totalNum);
                 trolleyContainer.appendChild(trolleyIcon);
                 trolleyContainer.appendChild(trolleyText);
-                counterContainer.appendChild(plus);
-                counterContainer.appendChild(num);
-                counterContainer.appendChild(minus)
-                containerOptions.appendChild(counterContainer);
-                containerOptions.appendChild(trolleyContainer);
                 starContainer.appendChild(star);
                 starContainer.appendChild(rate);
                 descriptionPartTwo.appendChild(price);
@@ -935,10 +920,10 @@ const getEcommerceProducts = async () =>{
                             succsefulContainer.style.display = DISPLAY_TYPES.NONE;
                         }, 2000)
 
-                    let img = evt.target.parentNode.parentNode.parentNode.parentNode.childNodes[0].src;
-                    let productName = evt.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[0].innerHTML;
-                    let price = evt.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[1].childNodes[0].innerHTML;
-                    let productId = evt.target.parentNode.parentNode.parentNode.parentNode.id;
+                    // let img = evt.target.parentNode.parentNode.parentNode.parentNode.childNodes[0].src;
+                    // let productName = evt.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[0].innerHTML;
+                    // let price = evt.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[1].childNodes[0].innerHTML;
+                    // let productId = evt.target.parentNode.parentNode.parentNode.parentNode.id;
 
                     console.log(evt.target.parentNode.parentNode.parentNode.parentNode);
 
@@ -956,9 +941,9 @@ const getEcommerceProducts = async () =>{
                         productPrice.classList.add('ecommerce__buy__products-container__container__price');
                     
                         //Content and Attributes
-                        productImg.setAttribute('src', img);
-                        productImg.setAttribute('alt', productName);
-                        title.innerHTML = productName;
+                        productImg.setAttribute('src', res[i].image);
+                        productImg.setAttribute('alt', res[i].title);
+                        title.innerHTML = res[i].title;
                         productPrice.innerHTML = parseInt(res[i].price) + '$';
                 
                         //Append Child
@@ -967,6 +952,22 @@ const getEcommerceProducts = async () =>{
                         container.appendChild(productPrice);
                         
                         arrayContainer.push(container);
+
+                        for (let i = 0; i < arrayContainer.length; i++) {
+                            let imgRoute = arrayContainer[i].childNodes[0].src;
+                            for (let j = i + 1; j < arrayContainer.length; j++){
+                                if (imgRoute === arrayContainer[j].childNodes[0].src){
+                                    console.log(`La imagen duplicada es ${imgRoute}`);
+                                    arrayContainer.pop();
+                                    succsefulContainer.classList.add('error-container');
+                                    succsefulContainer.style.animation = 'surprise .8s';
+                                    succesfulTitle.classList.add('error-container__title');
+                                    succesfulTitle.innerHTML = "You've already added this product!";
+                                    succesfulIcon.classList.remove('fa-check');
+                                    succesfulIcon.classList.add('fa-x');
+                                }
+                            }
+                        }
                     }
 
                     createCartProductContainer();
@@ -1009,8 +1010,28 @@ const getEcommerceProducts = async () =>{
 
                 container.addEventListener('click', () =>{
                 //Variables
+                const counterContainer = document.createElement('DIV');
+                let plus = document.createElement('BUTTON');
+                let num = document.createElement('P');
+                let numInt;
                 let numPrice = price.innerHTML.split('$')[0];
-                let numInt = parseInt(num.innerHTML);
+                numInt = parseInt(num.innerHTML);
+
+                counterContainer.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter');
+                plus.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__plus');
+                num.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__num');
+                minus.classList.add('ecommerce__main__products-container__item-container__nav__description__options__counter__minus');
+
+                plus.innerHTML = `+`;
+                num.innerHTML = '1';
+                minus.innerHTML = `-`;
+
+                counterContainer.appendChild(plus);
+                counterContainer.appendChild(num);
+                counterContainer.appendChild(minus)
+
+                containerOptions.appendChild(counterContainer);
+                containerOptions.appendChild(trolleyContainer);
                     
                 //Parse Float
                 numPrice = parseInt(numPrice);
@@ -1019,16 +1040,25 @@ const getEcommerceProducts = async () =>{
                                         
                 //Event Listeners
                 plus.addEventListener('click', () =>{
+                    numInt = parseInt(num.innerHTML);
                     numInt += 1;
                     num.innerHTML = numInt;
+                    console.log(parseInt(price.innerHTML.split('$')[0]))
+                    console.log(parseInt(res[i].price));
+                    console.log(parseInt(price.innerHTML.split('$')[0]) + parseInt(res[i].price))
                     price.innerHTML = parseInt(price.innerHTML.split('$')[0]) + parseInt(res[i].price) + '$';
                     totalNum.innerHTML = price.innerHTML;
                 })
                 minus.addEventListener('click', () =>{
-                    numInt -= 1;
-                    num.innerHTML = numInt;
-                    price.innerHTML = parseInt(price.innerHTML.split('$')[0]) - parseInt(res[i].price) + '$';
-                    totalNum.innerHTML = price.innerHTML;
+                    numInt = parseInt(num.innerHTML);
+                    if (numInt === 1){
+                        numInt = 1;
+                    } else {
+                        numInt -= 1;
+                        num.innerHTML = numInt;
+                        price.innerHTML = parseInt(price.innerHTML.split('$')[0]) - parseInt(res[i].price) + '$';
+                        totalNum.innerHTML = price.innerHTML;
+                    }
                 })
                     //Hidding and Appearing elements
                     trolley.style.display = 'none';
@@ -1038,6 +1068,7 @@ const getEcommerceProducts = async () =>{
                     ecommerceMenu.style.display = DISPLAY_TYPES.NONE;
                     setTimeout(() =>{
                         loader.style.display = DISPLAY_TYPES.NONE;
+                        about.style.display = DISPLAY_TYPES.FLEX;
                         productContainer.style.display = DISPLAY_TYPES.FLEX;
                     }, 400);
                     //Variables
@@ -1089,7 +1120,85 @@ const getEcommerceProducts = async () =>{
                         descriptionContainer.style.animation = 'disappear 1s forwards';
                     })
 
+                    trolleyContainer.addEventListener('click', (evt) =>{
+                        // let productName = evt.target.parentNode.parentNode.childNodes[0].innerHTML;
+                        // let img = evt.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].src;
+                        // console.log(productName);
+                        // console.log(img);
+
+                        function createCartProductContainer(){
+                            //Variables
+                            const succsefulContainer = document.createElement('DIV');
+                            let succesfulTitle = document.createElement('H2');
+                            let succesfulIcon = document.createElement('I');
+        
+                            succsefulContainer.classList.add('succesful-container');
+                            succesfulTitle.classList.add('succesful-container__title');
+                            succesfulIcon.classList.add('succesful-container__icon');
+                            succesfulIcon.classList.add('fa-solid');
+                            succesfulIcon.classList.add('fa-check');
+        
+                            succesfulTitle.innerHTML = "Product Added to cart";
+        
+                            succsefulContainer.appendChild(succesfulTitle);
+                            succsefulContainer.appendChild(succesfulIcon);
+                            body.appendChild(succsefulContainer);
+
+                            succsefulContainer.style.animation = `succesful 2s forwards`;
+
+                            setTimeout(() =>{
+                                succsefulContainer.style.display = DISPLAY_TYPES.NONE;
+                            }, 2000)
+
+                            const container = document.createElement('DIV');
+                            let productImg = document.createElement('IMG');
+                            let title = document.createElement('H3');
+                            let productPrice = document.createElement('P');
+    
+                            //Classes
+                            container.classList.add('ecommerce__buy__products-container__container');
+                            productImg.classList.add('ecommerce__buy__products-container__container__img');
+                            title.classList.add('ecommerce__buy__products-container__container__title');
+                            productPrice.classList.add('ecommerce__buy__products-container__container__price');
+                        
+                            //Content and Attributes
+                            productImg.setAttribute('src', res[i].image);
+                            productImg.setAttribute('alt', res[i].title);
+                            title.innerHTML = res[i].title;
+                            productPrice.innerHTML = parseInt(res[i].price) + '$';
+                    
+                            //Append Child
+                            container.appendChild(productImg);
+                            container.appendChild(title);
+                            container.appendChild(productPrice);
+                            
+                            arrayContainer.push(container);
+
+                            for (let i = 0; i < arrayContainer.length; i++) {
+                                let imgRoute = arrayContainer[i].childNodes[0].src;
+                                for (let j = i + 1; j < arrayContainer.length; j++){
+                                    if (imgRoute === arrayContainer[j].childNodes[0].src){
+                                        console.log(`La imagen duplicada es ${imgRoute}`);
+                                        arrayContainer.pop();
+                                        succsefulContainer.classList.add('error-container');
+                                        succsefulContainer.style.animation = 'surprise .8s';
+                                        succesfulTitle.classList.add('error-container__title');
+                                        succesfulTitle.innerHTML = "You've already added this product!";
+                                        succesfulIcon.classList.remove('fa-check');
+                                        succesfulIcon.classList.add('fa-x');
+                                    }
+                                }
+                            }
+                        }
+    
+                        createCartProductContainer();
+                    })
+
                     containerReturn.addEventListener('click', () =>{
+                        num.innerHTML = 1;
+                        price.innerHTML = parseInt(res[i].price) + '$';
+                        totalNum.innerHTML = price.innerHTML;
+                        containerOptions.removeChild(counterContainer);
                         loader.style.display = DISPLAY_TYPES.BLOCK;
                         productContainer.removeChild(nav);
                         container.appendChild(nav);
@@ -1140,8 +1249,7 @@ const getEcommerceProducts = async () =>{
 
                 //Scroll Reveal
                 sr.reveal(container, {
-                    delay: 300,
-                    reset: true
+                    delay: 100,
                 })
             }
         })
