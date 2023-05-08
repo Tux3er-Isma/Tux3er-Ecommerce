@@ -26,3 +26,14 @@
     color: variables.$red;
     font-weight: bold;
 }
+
+/*Ecommerce*/
+@mixin return(){
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+@mixin dashboardTitle(){
+    margin-top: 20px;
+}
