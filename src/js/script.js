@@ -580,52 +580,56 @@ function displatChatDashboard(){
     //Content and Attributes
     title.innerHTML = "Chat Conversations";
 
-    //Fetch
-    fetch('/src/js/sellers.json').then((res) =>{
-        res.json().then((res) =>{
-            for (let i = 0; i < arrayId.length; i++){
-                //Variables
-                const container = document.createElement('DIV');
-                let productImg = document.createElement('IMG');
-                const sellerInfoContainer = document.createElement('DIV');
-                let sellerImg = document.createElement('IMG');
-                let sellerName = document.createElement('H3');
-                let sellerNick = document.createElement('H3');
-
-                //Clases
-                container.classList.add('ecommerce__chat-dashboard__chats-container__container');
-                productImg.classList.add('ecommerce__chat-dashboard__chats-container__container__product-img');
-                sellerInfoContainer.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container');
-                sellerImg.classList.add('ecommerce__chat-dashboard__chats-container__container__img');
-                sellerName.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__name');
-                sellerNick.classList.add('ecommerce__chats-dashboard__chats-container__container__info-container__nick');
-
-                //Attributes and Content
-                productImg.setAttribute('src', res[arrayId[i]].productImg);
-                productImg.setAttribute('alt', 'Product');
-                sellerImg.setAttribute('src', res[arrayId[i]].img);
-                sellerImg.setAttribute('alt', 'Seller');
-                sellerName.innerHTML = res[arrayId[i]].name;
-                sellerNick.innerHTML = res[arrayId[i]].nickname;
-
-                console.log(arrayId[i]);
-
-                //Append Child
-                sellerInfoContainer.appendChild(sellerName);
-                sellerInfoContainer.appendChild(sellerNick);
-                container.appendChild(productImg);
-                container.appendChild(sellerImg);
-                container.appendChild(sellerInfoContainer);
-                chatsContainer.appendChild(container);
-            }
-        })
-    })
-
     //Append Child
     chatDasboard.appendChild(chatReturn);
     chatDasboard.appendChild(title);
     chatDasboard.appendChild(chatsContainer);
     ecommerce.appendChild(chatDasboard);
+
+    //Functions
+    function getSellersData(){
+        return fetch('/src/js/sellers.json').then((res) =>{
+            res.json().then((res) =>{
+                for (let i = 0; i < arrayId.length; i++){
+                    console.log(res[arrayId[i]].img);
+                    const container = document.createElement('DIV');
+                    const infoContainer = document.createElement('DIV');
+                    let sellerImg = document.createElement('IMG');
+                    let sellerName = document.createElement('P');
+                    let sellerNick = document.createElement('P');
+                    let productImg = document.createElement('IMG');
+
+                    sellerImg.setAttribute('src', res[arrayId[i]].img);
+                    sellerImg.setAttribute('alt', res[arrayId[i]].name);
+                    sellerName.innerHTML = res[arrayId[i]].name;
+                    sellerNick.innerHTML = res[arrayId[i]].nickname;
+                    fetch('https://fakestoreapi.com/products').then((res) =>{
+                        res.json().then((res) =>{
+                            console.log(res[arrayId[i]].image);
+                            productImg.setAttribute('src', res[arrayId[i]].image);
+                            productImg.setAttribute('alt', 'Product');
+                            productImg.classList.add('ecommerce__chat-dashboard__chats-container__container__product-img');
+                        })
+                    })
+
+                    container.classList.add('ecommerce__chat-dashboard__chats-container__container');
+                    infoContainer.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container');
+                    sellerImg.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__img');
+                    sellerName.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__name');
+                    sellerNick.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__nick');
+
+                    infoContainer.appendChild(sellerImg);
+                    infoContainer.appendChild(sellerName);
+                    infoContainer.appendChild(sellerNick);
+                    container.appendChild(infoContainer);
+                    container.appendChild(productImg);
+                    chatsContainer.appendChild(container);
+                }
+            })
+        })
+    }
+
+    getSellersData();
 
     //Event Listeners
     chatReturn.addEventListener('click', () =>{
@@ -976,12 +980,9 @@ const getEcommerceProducts = async () =>{
                 })
 
                 chat.addEventListener('click', (evt) =>{
-                    let productId = evt.target.parentNode.parentNode.id;
-                    productId = parseInt(productId);
-                    productId = productId - 1
-                    console.log(productId);
-                    arrayId.push(productId);
+                    arrayId.push(parseInt(res[i].id) - 1);
                     console.log(arrayId);
+
                     evt.stopPropagation();
                 })
 
@@ -1048,6 +1049,7 @@ const getEcommerceProducts = async () =>{
                     console.log(parseInt(price.innerHTML.split('$')[0]) + parseInt(res[i].price))
                     price.innerHTML = parseInt(price.innerHTML.split('$')[0]) + parseInt(res[i].price) + '$';
                     totalNum.innerHTML = price.innerHTML;
+                    arrayContainer = [];
                 })
                 minus.addEventListener('click', () =>{
                     numInt = parseInt(num.innerHTML);
@@ -1058,6 +1060,7 @@ const getEcommerceProducts = async () =>{
                         num.innerHTML = numInt;
                         price.innerHTML = parseInt(price.innerHTML.split('$')[0]) - parseInt(res[i].price) + '$';
                         totalNum.innerHTML = price.innerHTML;
+                        arrayContainer = [];
                     }
                 })
                     //Hidding and Appearing elements
