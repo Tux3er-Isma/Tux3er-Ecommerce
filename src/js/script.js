@@ -982,6 +982,40 @@ const getEcommerceProducts = async () =>{
                 chat.addEventListener('click', (evt) =>{
                     arrayId.push(parseInt(res[i].id) - 1);
                     console.log(arrayId);
+                    const succsefulContainer = document.createElement('DIV');
+                    let succesfulTitle = document.createElement('H2');
+
+                    succsefulContainer.classList.add('succesful-container');
+                    succesfulTitle.classList.add('succesful-container__title');
+
+                    succesfulTitle.innerHTML = "See your chat dashboard";
+
+                    succsefulContainer.appendChild(succesfulTitle);
+                    body.appendChild(succsefulContainer);
+
+                        succsefulContainer.style.animation = `succesful 2s forwards`;
+
+                        setTimeout(() =>{
+                            succsefulContainer.style.display = DISPLAY_TYPES.NONE;
+                        }, 2000)
+
+
+                        for (let i = 0; i < arrayId.length; i++){
+                            fetch('/src/js/sellers.json').then((res) =>{
+                                res.json().then((res) =>{
+                                    for (let j = i + 1; j < arrayId.length; j++){
+                                        console.log(res[arrayId[j]].img);
+                                        if (res[arrayId[i]].img === res[arrayId[j]].img){
+                                            arrayId.pop();
+                                            succsefulContainer.classList.add('error-container');
+                                            succsefulContainer.style.animation = 'surprise .8s';
+                                            succesfulTitle.classList.add('error-container__title');
+                                            succesfulTitle.innerHTML = "See your chat dahsboard!";
+                                        }
+                                    }
+                                })
+                            })
+                        }
 
                     evt.stopPropagation();
                 })
