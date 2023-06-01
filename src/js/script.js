@@ -14,6 +14,7 @@ let userimg;
 let imgUrl;
 let arrayContainer = [];
 let arrayId = [];
+let chatArr = [];
 
 //Log Page
 const logPage = document.querySelector('.log-page');
@@ -84,6 +85,40 @@ let ecommerceAdminIcon = document.querySelector('.ecommerce-menu__list-container
 let ecommerceAdminIconTwo = document.querySelector('.ecommerce-menu__list-container__item--2');
 let ecommerceAdminIconThree = document.querySelector('.ecommerce-menu__list-container__item--3')
 const ecommerceAdmin = document.querySelector('.ecommerce__admin');
+
+//Chat
+const chat = document.createElement('DIV');
+const nav = document.createElement('NAV');
+let chat2Return = document.createElement('I');
+const chatInfoContainer = document.createElement('DIV');
+let chatSellerImg = document.createElement('IMG');
+let chatSellerName = document.createElement('P');
+//Chat classes
+chat.classList.add('ecommerce__chat');
+nav.classList.add('ecommerce__chat__nav');
+chat2Return.classList.add('ecommerce__chat__nav__return');
+chat2Return.classList.add('fa-solid');
+chat2Return.classList.add('fa-arrow-left');
+chatInfoContainer.classList.add('ecommerce__chat__nav__info-container');
+chatSellerImg.classList.add('ecommerce__chat__nav__info-container__img');
+chatSellerName.classList.add('ecommerce__chat__nav__info-container__name');
+//Append Child
+chatInfoContainer.appendChild(chatSellerImg);
+chatInfoContainer.appendChild(chatSellerName);
+nav.appendChild(chat2Return);
+nav.appendChild(chatInfoContainer);
+chat.appendChild(nav);
+ecommerce.appendChild(chat);
+//Event Listeners
+chat2Return.addEventListener('click', () =>{
+    chat.style.display = DISPLAY_TYPES.NONE;
+    loader.style.display = DISPLAY_TYPES.BLOCK;
+    setTimeout(() =>{
+        loader.style.display = DISPLAY_TYPES.NONE;
+        ecommerceMain.style.display = DISPLAY_TYPES.FLEX;
+        ecommerceMenu.style.display = DISPLAY_TYPES.FLEX;
+    }, 400)
+})
 
 
 //Scroll Reveal
@@ -552,6 +587,29 @@ function displayCartDashboard(){
         }, 400)
     })
 }
+function displayChat(){
+    document.querySelectorAll('.ecommerce__chat-dashboard').forEach((element) =>{
+        element.style.display = DISPLAY_TYPES.NONE;
+    })
+    loader.style.display = DISPLAY_TYPES.BLOCK;
+    setTimeout(() =>{
+        loader.style.display = DISPLAY_TYPES.NONE;
+        chat.style.display = DISPLAY_TYPES.FLEX;
+    }, 400)
+
+    fetch('/src/js/sellers.json').then((res) =>{
+        res.json().then((res) =>{
+            for (let i = 0; i < arrayId.length; i++){
+                chatSellerImg.setAttribute('src', res[arrayId[i]].img);
+                chatSellerImg.setAttribute('alt', res[arrayId[i]].name);
+                chatSellerName.innerHTML = res[arrayId[i]].name;
+                // chatSellerImg.setAttribute('src', res[res.id].img);
+                // chatSellerImg.setAttribute('alt', res[res.id].name);
+                // chatSellerName.innerHTML = res[res.id].name;
+            }
+        })
+    })
+}
 function displatChatDashboard(){
     //Appearing and Hidding elements
     ecommerceMenu.style.display = DISPLAY_TYPES.NONE;
@@ -587,46 +645,47 @@ function displatChatDashboard(){
     ecommerce.appendChild(chatDasboard);
 
     //Functions
-    function getSellersData(){
-        return fetch('/src/js/sellers.json').then((res) =>{
-            res.json().then((res) =>{
-                for (let i = 0; i < arrayId.length; i++){
-                    console.log(res[arrayId[i]].img);
-                    const container = document.createElement('DIV');
-                    const infoContainer = document.createElement('DIV');
-                    let sellerImg = document.createElement('IMG');
-                    let sellerName = document.createElement('P');
-                    let sellerNick = document.createElement('P');
-                    let productImg = document.createElement('IMG');
+    async function getSellersData(){
+        const res = await fetch('/src/js/sellers.json');
+        res.json().then((res_1) => {
+            for (let i = 0; i < arrayId.length; i++) {
+                console.log(res_1[arrayId[i]].img);
+                const container = document.createElement('DIV');
+                const infoContainer = document.createElement('DIV');
+                let sellerImg = document.createElement('IMG');
+                let sellerName = document.createElement('P');
+                let sellerNick = document.createElement('P');
+                let productImg = document.createElement('IMG');
 
-                    sellerImg.setAttribute('src', res[arrayId[i]].img);
-                    sellerImg.setAttribute('alt', res[arrayId[i]].name);
-                    sellerName.innerHTML = res[arrayId[i]].name;
-                    sellerNick.innerHTML = res[arrayId[i]].nickname;
-                    fetch('https://fakestoreapi.com/products').then((res) =>{
-                        res.json().then((res) =>{
-                            console.log(res[arrayId[i]].image);
-                            productImg.setAttribute('src', res[arrayId[i]].image);
-                            productImg.setAttribute('alt', 'Product');
-                            productImg.classList.add('ecommerce__chat-dashboard__chats-container__container__product-img');
-                        })
-                    })
+                sellerImg.setAttribute('src', res_1[arrayId[i]].img);
+                sellerImg.setAttribute('alt', res_1[arrayId[i]].name);
+                sellerName.innerHTML = res_1[arrayId[i]].name;
+                sellerNick.innerHTML = res_1[arrayId[i]].nickname;
+                fetch('https://fakestoreapi.com/products').then((res_2) => {
+                    res_2.json().then((res_3) => {
+                        console.log(res_3[arrayId[i]].image);
+                        productImg.setAttribute('src', res_3[arrayId[i]].image);
+                        productImg.setAttribute('alt', 'Product');
+                        productImg.classList.add('ecommerce__chat-dashboard__chats-container__container__product-img');
+                    });
+                });
 
-                    container.classList.add('ecommerce__chat-dashboard__chats-container__container');
-                    infoContainer.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container');
-                    sellerImg.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__img');
-                    sellerName.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__name');
-                    sellerNick.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__nick');
+                container.classList.add('ecommerce__chat-dashboard__chats-container__container');
+                infoContainer.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container');
+                sellerImg.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__img');
+                sellerName.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__name');
+                sellerNick.classList.add('ecommerce__chat-dashboard__chats-container__container__info-container__nick');
 
-                    infoContainer.appendChild(sellerImg);
-                    infoContainer.appendChild(sellerName);
-                    infoContainer.appendChild(sellerNick);
-                    container.appendChild(infoContainer);
-                    container.appendChild(productImg);
-                    chatsContainer.appendChild(container);
-                }
-            })
-        })
+                infoContainer.appendChild(sellerImg);
+                infoContainer.appendChild(sellerName);
+                infoContainer.appendChild(sellerNick);
+                container.appendChild(infoContainer);
+                container.appendChild(productImg);
+                chatsContainer.appendChild(container);
+
+                container.addEventListener('click', displayChat);
+            }
+        });
     }
 
     getSellersData();
