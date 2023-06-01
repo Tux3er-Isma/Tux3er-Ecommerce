@@ -699,4 +699,42 @@
             }
         }
     }
+
+    .ecommerce__chat{
+        display: none;
+        width: 100vw;
+        height: 100vh;
+
+        &__nav{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100px;
+            box-shadow: 0px 0px 10px 1px variables.$semi-grey;
+
+            &__return{
+                position: absolute;
+                left: 20px;
+            }
+
+            &__info-container{
+                display: flex;
+                align-items: center;
+
+                &__img{
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 10px;
+                }
+
+                &__name{
+                    color: variables.$black;
+                    font-weight: bold;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
 }
