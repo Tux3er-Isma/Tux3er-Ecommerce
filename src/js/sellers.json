@@ -1,5 +1,6 @@
 {
     "0": {
+        "id": "0",
         "productImg": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
         "img": "/public/assets/img/jessica.png",
         "name": "Jessica",
@@ -8,6 +9,7 @@
     },
 
     "1": {
+      "id": "1",
         "productImg": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
         "img": "/public/assets/img/james.png",
         "name": "James",
@@ -16,6 +18,7 @@
     },
 
     "2": {
+      "id": "2",
         "productImg": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
         "img": "/public/assets/img/aria.png",
         "name": "Aria",
@@ -24,6 +27,7 @@
     },
 
     "3": {
+      "id": "3",
         "productImg": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
         "img": "/public/assets/img/noemi.png",
         "name": "Naomi",
@@ -32,6 +36,7 @@
     },
 
     "4": {
+      "id": "4",
         "productImg": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
         "img": "/public/assets/img/sebastian.png",
         "name": "Sebastian",
@@ -40,6 +45,7 @@
     },
 
     "5": {
+      "id": "5",
         "productImg": "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg",
         "img": "/public/assets/img/frodo.png",
         "name": "Frodo",
@@ -48,6 +54,7 @@
     },
 
     "6": {
+      "id": "6",
         "productImg": "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg",
         "img": "/public/assets/img/luna.png",
         "name": "Luna",
@@ -56,6 +63,7 @@
     },
 
     "7": {
+      "id": "7",
         "productImg": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
         "img": "/public/assets/img/milo.png",
         "name": "Milo",
@@ -64,6 +72,7 @@
       },
 
     "8": {
+      "id": "8",
         "productImg": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UL640_QL65_ML3_.jpg",
         "img": "/public/assets/img/paula.png",
         "name": "Paula",
@@ -72,6 +81,7 @@
       },
 
     "9": {
+      "id": "9",
         "productImg": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
         "img": "/public/assets/img/carlos.png",
         "name": "Carlos",
@@ -80,6 +90,7 @@
       },
       
     "10": {
+      "id": "10",
         "productImg": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
         "img": "/public/assets/img/nina.png",
         "name": "Nina",
@@ -88,6 +99,7 @@
       },
     
       "11": {
+        "id": "11",
         "productImg": "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
         "img": "/public/assets/img/aurora.png",
         "name": "Aurora",
@@ -96,6 +108,7 @@
       },
 
       "12": {
+        "id": "12",
         "productImg": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
         "img": "/public/assets/img/oliver.png",
         "name": "Oliver",
@@ -104,6 +117,7 @@
       },
 
       "13": {
+        "id": "13",
         "productImg": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
         "img":"/public/assets/img/isabella.png",
         "name": "Isabella",
@@ -112,6 +126,7 @@
       },
       
       "14": {
+        "id": "14",
         "productImg": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
         "img":"/public/assets/img/olivia.png",
         "name": "Olivia",
@@ -120,6 +135,7 @@
       },
 
       "15": {
+        "id": "15",
         "productImg": "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
         "img":"/public/assets/img/lucas.png",
         "name": "Lucas",
@@ -128,6 +144,7 @@
       },
 
       "16": {
+        "id": "16",
         "productImg": "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
         "img":"/public/assets/img/jacob.png",
         "name": "Jacob",
@@ -136,6 +153,7 @@
       },
       
       "17": {
+        "id": "17",
         "productImg": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
         "img":"/public/assets/img/maria.png",
         "name": "Maria",
@@ -144,6 +162,7 @@
       },
 
       "18": {
+        "id": "18",
         "productImg": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
         "img":"/public/assets/img/billy.png",
         "name": "Billy",
@@ -152,6 +171,7 @@
       },
 
       "19": {
+        "id": "19",
         "productImg": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
         "img":"/public/assets/img/carla.png",
         "name": "Carla",
@@ -160,6 +180,7 @@
       },
 
       "20": {
+        "id": "20",
         "productImg": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
         "img":"/public/assets/img/natalie.png",
         "name": "Natalie",
