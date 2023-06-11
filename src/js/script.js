@@ -87,10 +87,12 @@ const ecommerceAdmin = document.querySelector('.ecommerce__admin');
 
 let preText;
 let apiKey;
-fetch('.env').then((res) =>{
+fetch('env.json').then((res) =>{
     res.json().then((res) =>{
         apiKey = res.APIKEY;
     })
+}).catch((err) =>{
+    console.log(err);
 })
 
 //Scroll Reveal
