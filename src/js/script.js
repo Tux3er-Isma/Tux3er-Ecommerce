@@ -88,6 +88,12 @@ let ecommerceAdminIconThree = document.querySelector('.ecommerce-menu__list-cont
 const ecommerceAdmin = document.querySelector('.ecommerce__admin');
 
 let preText;
+let apiKey;
+fetch('/.vscode/settings.json').then((res) =>{
+    res.json().then((res) =>{
+        apiKey = res.openaiapi;
+    })
+})
 
 //Scroll Reveal
 window.sr = ScrollReveal();
@@ -758,14 +764,6 @@ function displayChat(){
     })
 
     sendBtn.addEventListener('click', () =>{
-        let apiKey;
-        fetch('/keys/openai.json').then((res) =>{
-            res.json().then(res =>{
-                apiKey = res.openaiapi;
-            })
-        }).catch((err) =>{
-            console.log(err);
-        })
         const apiUrl = "https://api.openai.com/v1/completions";
         const userContainer = document.createElement('DIV');
         let userMess = document.createElement('P');
