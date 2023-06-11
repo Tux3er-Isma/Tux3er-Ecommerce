@@ -18,7 +18,7 @@ This is a frontend project using APIs and web design. This is a practice web app
 - [Social Media](#social-media)
 
 # Live
-Site url 🔴: 
+Site url 🔴: [Tux3er-Ecommerce](https://tux3er-ecommerce.netlify.app/)
 
 # Overview
 ### UI
