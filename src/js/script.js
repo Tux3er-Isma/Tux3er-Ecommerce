@@ -758,7 +758,14 @@ function displayChat(){
     })
 
     sendBtn.addEventListener('click', () =>{
-        const apiKey = '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';
+        let apiKey;
+        fetch('/keys/openai.json').then((res) =>{
+            res.json().then(res =>{
+                apiKey = res.openaiapi;
+            })
+        }).catch((err) =>{
+            console.log(err);
+        })
         const apiUrl = "https://api.openai.com/v1/completions";
         const userContainer = document.createElement('DIV');
         let userMess = document.createElement('P');
