@@ -87,9 +87,9 @@ const ecommerceAdmin = document.querySelector('.ecommerce__admin');
 
 let preText;
 let apiKey;
-fetch('/.env/keys.json').then((res) =>{
+fetch('.env').then((res) =>{
     res.json().then((res) =>{
-        apiKey = res.openaiapi;
+        apiKey = res.APIKEY;
     })
 })
 
