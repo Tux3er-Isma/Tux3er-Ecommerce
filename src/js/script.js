@@ -15,6 +15,7 @@ let imgUrl;
 let arrayContainer = [];
 let arrayId = [];
 let chatArr = [];
+let chatConversationsArr = [];
 
 //Log Page
 const logPage = document.querySelector('.log-page');
@@ -86,40 +87,7 @@ let ecommerceAdminIconTwo = document.querySelector('.ecommerce-menu__list-contai
 let ecommerceAdminIconThree = document.querySelector('.ecommerce-menu__list-container__item--3')
 const ecommerceAdmin = document.querySelector('.ecommerce__admin');
 
-//Chat
-const chat = document.createElement('DIV');
-const nav = document.createElement('NAV');
-let chat2Return = document.createElement('I');
-const chatInfoContainer = document.createElement('DIV');
-let chatSellerImg = document.createElement('IMG');
-let chatSellerName = document.createElement('P');
-//Chat classes
-chat.classList.add('ecommerce__chat');
-nav.classList.add('ecommerce__chat__nav');
-chat2Return.classList.add('ecommerce__chat__nav__return');
-chat2Return.classList.add('fa-solid');
-chat2Return.classList.add('fa-arrow-left');
-chatInfoContainer.classList.add('ecommerce__chat__nav__info-container');
-chatSellerImg.classList.add('ecommerce__chat__nav__info-container__img');
-chatSellerName.classList.add('ecommerce__chat__nav__info-container__name');
-//Append Child
-chatInfoContainer.appendChild(chatSellerImg);
-chatInfoContainer.appendChild(chatSellerName);
-nav.appendChild(chat2Return);
-nav.appendChild(chatInfoContainer);
-chat.appendChild(nav);
-ecommerce.appendChild(chat);
-//Event Listeners
-chat2Return.addEventListener('click', () =>{
-    chat.style.display = DISPLAY_TYPES.NONE;
-    loader.style.display = DISPLAY_TYPES.BLOCK;
-    setTimeout(() =>{
-        loader.style.display = DISPLAY_TYPES.NONE;
-        ecommerceMain.style.display = DISPLAY_TYPES.FLEX;
-        ecommerceMenu.style.display = DISPLAY_TYPES.FLEX;
-    }, 400)
-})
-
+let preText;
 
 //Scroll Reveal
 window.sr = ScrollReveal();
@@ -587,29 +555,6 @@ function displayCartDashboard(){
         }, 400)
     })
 }
-function displayChat(){
-    document.querySelectorAll('.ecommerce__chat-dashboard').forEach((element) =>{
-        element.style.display = DISPLAY_TYPES.NONE;
-    })
-    loader.style.display = DISPLAY_TYPES.BLOCK;
-    setTimeout(() =>{
-        loader.style.display = DISPLAY_TYPES.NONE;
-        chat.style.display = DISPLAY_TYPES.FLEX;
-    }, 400)
-
-    fetch('/src/js/sellers.json').then((res) =>{
-        res.json().then((res) =>{
-            for (let i = 0; i < arrayId.length; i++){
-                chatSellerImg.setAttribute('src', res[arrayId[i]].img);
-                chatSellerImg.setAttribute('alt', res[arrayId[i]].name);
-                chatSellerName.innerHTML = res[arrayId[i]].name;
-                // chatSellerImg.setAttribute('src', res[res.id].img);
-                // chatSellerImg.setAttribute('alt', res[res.id].name);
-                // chatSellerName.innerHTML = res[res.id].name;
-            }
-        })
-    })
-}
 function displatChatDashboard(){
     //Appearing and Hidding elements
     ecommerceMenu.style.display = DISPLAY_TYPES.NONE;
@@ -683,6 +628,9 @@ function displatChatDashboard(){
                 container.appendChild(productImg);
                 chatsContainer.appendChild(container);
 
+                container.addEventListener('click', () =>{
+                    chatArr.push(parseInt(res_1[arrayId[i]].id)) - 1
+                })
                 container.addEventListener('click', displayChat);
             }
         });
@@ -699,6 +647,165 @@ function displatChatDashboard(){
             ecommerceMenu.style.display = DISPLAY_TYPES.FLEX;
             ecommerceMain.style.display = DISPLAY_TYPES.FLEX;
         }, 400)
+    })
+}
+function displayChat(){
+    //Appear and Hide elements
+    document.querySelectorAll('.ecommerce__chat-dashboard').forEach((element) =>{
+        element.style.display = DISPLAY_TYPES.NONE;
+    })
+    loader.style.display = DISPLAY_TYPES.BLOCK;
+
+    setTimeout(() =>{
+        loader.style.display = DISPLAY_TYPES.NONE;
+        ecommerce.appendChild(chat);
+    }, 400)
+
+    //Variables
+    const chat = document.createElement('DIV');
+    const nav = document.createElement('NAV');
+    let chat2Return = document.createElement('I');
+    let navInfo = document.createElement('DIV');
+    let navInfoImg = document.createElement('IMG');
+    let navInfoName = document.createElement('P');
+    const main = document.createElement('MAIN');
+    const mainInfo = document.createElement('DIV');
+    let mainInfoImg = document.createElement('IMG');
+    let mainInfoNick = document.createElement('P');
+    let mainConversationContainer = document.createElement('DIV');
+    const footer = document.createElement('FOOTER');
+    const sendContainer = document.createElement('DIV');
+    let sendInpt = document.createElement('INPUT');
+    let sendBtn = document.createElement('DIV');
+
+    //Classes
+    chat.classList.add('ecommerce__chat');
+    nav.classList.add('ecommerce__chat__nav');
+    chat2Return.classList.add('ecommerce__chat__nav__return');
+    chat2Return.classList.add('fa-solid');
+    chat2Return.classList.add('fa-arrow-left');
+    navInfo.classList.add('ecommerce__chat__nav__info-container');
+    navInfoImg.classList.add('ecommerce__chat__nav__info-container__img');
+    navInfoName.classList.add('ecommerce__chat__nav__info-container__name');
+    main.classList.add('ecommerce__chat__main');
+    mainInfo.classList.add('ecommerce__chat__main__info-container');
+    mainInfoImg.classList.add('ecommerce__chat__main__info-container__img');
+    mainInfoNick.classList.add('ecommerce__chat__main__info-container__nick');
+    mainConversationContainer.classList.add('ecommerce__chat__main__conversation-container');
+    footer.classList.add('ecommerce__chat__footer');
+    sendContainer.classList.add('ecommerce__chat__footer__send-container');
+    sendInpt.classList.add('ecommerce__chat__footer__send-container__inpt');
+    sendBtn.classList.add('ecommerce__chat__footer__send-container__btn');
+    sendBtn.classList.add('fa-solid');
+    sendBtn.classList.add('fa-paper-plane')
+
+    //Content
+    fetch('/src/js/sellers.json').then((res) =>{
+        res.json().then((res) =>{
+            for (let i = 0; i < chatArr.length; i++){
+                navInfoImg.setAttribute('src', res[chatArr[i]].img);
+                navInfoImg.setAttribute('alt', res[chatArr[i]].name);
+                navInfoName.innerHTML = res[chatArr[i]].name;
+                mainInfoImg.setAttribute('src', res[chatArr[i]].img);
+                mainInfoImg.setAttribute('alt', res[chatArr[i]].name);
+                mainInfoNick.innerHTML = res[chatArr[i]].nickname;
+                preText = res[chatArr[i]].description;
+            }
+        }).catch((err) =>{
+            console.log(err);
+        })
+    })
+
+    fetch('/src/js/sellers.json').then((res) =>{
+        res.json().then((res) =>{
+            for (let i = 0; i < 20; i++){
+                console.log(chatConversationsArr[arrayId[i]])
+                    mainConversationContainer.innerHTML = chatConversationsArr[arrayId[i][0]];
+            }
+        }).catch((err) =>{
+            mainConversationContainer.innerHTML = '';
+        })
+    })
+
+
+    sendInpt.setAttribute('type', 'text');
+    sendInpt.setAttribute('placeholder', 'Send a message ...')
+
+    navInfo.appendChild(navInfoImg);
+    navInfo.appendChild(navInfoName);
+    nav.appendChild(chat2Return);
+    nav.appendChild(navInfo);
+    mainInfo.appendChild(mainInfoImg);
+    mainInfo.appendChild(mainInfoNick);
+    sendContainer.appendChild(sendInpt);
+    sendContainer.appendChild(sendBtn);
+    footer.appendChild(sendContainer);
+    main.appendChild(mainInfo);
+    main.appendChild(mainConversationContainer);
+    chat.appendChild(nav);
+    chat.appendChild(main);
+    chat.appendChild(footer);
+
+    //Event Listeners
+    chat2Return.addEventListener('click', () =>{
+        ecommerce.removeChild(chat);
+        loader.style.display = DISPLAY_TYPES.BLOCK;
+        setTimeout(() =>{
+            loader.style.display = DISPLAY_TYPES.NONE;
+            ecommerceMain.style.display = DISPLAY_TYPES.FLEX;
+            ecommerceMenu.style.display = DISPLAY_TYPES.FLEX;
+        }, 400)
+    })
+
+    sendBtn.addEventListener('click', () =>{
+        const apiKey = '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';
+        const apiUrl = "https://api.openai.com/v1/completions";
+        const userContainer = document.createElement('DIV');
+        let userMess = document.createElement('P');
+        const botContainer = document.createElement('DIV');
+        let botMess = document.createElement('P');
+
+        userContainer.classList.add('ecommerce__chat__main__conversation-container__user-container');
+        userMess.classList.add('ecommerce__chat__main__conversation-container__user-container__mess');
+        botContainer.classList.add('ecommerce__chat__main__conversation-container__bot-container');
+        botMess.classList.add('ecommerce__chat__main__conversation-container__bot-container__mess');
+
+        userMess.innerHTML = sendInpt.value;
+
+                    const getBotMessage = async () =>{
+                        const response = await axios.post(
+                            "https://api.openai.com/v1/completions",
+                            {
+                              prompt: preText + `${sendInpt.value}`,
+                              model: "text-davinci-003",
+                              temperature: 0,
+                              max_tokens: 500,
+                              top_p: 1,
+                              frequency_penalty: 0.0,
+                              presence_penalty: 0.0,
+                            },
+                            {
+                              headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${apiKey}`,
+                              },
+                            }
+                          );
+                          const chatbotResponse = response.data.choices[0].text;
+                        console.log(chatbotResponse);
+                        botMess.innerHTML = chatbotResponse;
+                    }
+
+                    getBotMessage();
+
+                sendInpt.value = '';
+        userContainer.appendChild(userMess);
+        botContainer.appendChild(botMess);
+        mainConversationContainer.appendChild(userContainer);
+        mainConversationContainer.appendChild(botContainer);
+        setTimeout(() =>{
+            chatConversationsArr.push(mainConversationContainer);
+        }, 2000)
     })
 }
 
@@ -1356,3 +1463,7 @@ const getEcommerceProducts = async () =>{
 
 getProducts();
 getEcommerceProducts();
+
+function eliminarDuplicados(array) {
+    return array.filter((elemento, indice) => array.indexOf(elemento) === indice);
+  }
