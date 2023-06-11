@@ -701,9 +701,9 @@
     }
 
     .ecommerce__chat{
-        display: none;
         width: 100vw;
         height: 100vh;
+        flex-direction: column;
 
         &__nav{
             display: flex;
@@ -733,6 +733,96 @@
                     color: variables.$black;
                     font-weight: bold;
                     margin-right: 10px;
+                }
+            }
+        }
+
+        &__main{
+            display: flex;
+            flex-direction: column;
+            overflow-y: scroll;
+
+            &__info-container{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                &__img{
+                    margin-top: 30px;
+                    margin-bottom: 5px;
+                    color: variables.$grey;
+                    width: 100px;
+                    border-radius: 50%;
+                    border: .5px solid variables.$black;
+                }
+    
+                &__nick{
+                    font-size: 20px;
+                    text-align: center;
+                    margin-bottom: 40px;
+                }
+            }
+
+            &__conversation-container{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100vw;
+
+                &__user-container{
+                    padding: 10px;
+                    margin-right: 10px;
+                    border-radius: 15px;
+                    align-self: flex-end;
+                    max-width: 150px;
+                    margin-bottom: 10px;
+                    background-color: variables.$black;
+                    color: variables.$white;
+                    align-self: flex-end;
+                    &__text{
+                        margin-left: 5px;
+                    }
+                }
+    
+                &__bot-container{
+                    align-self: flex-start;
+                    margin-bottom: 10px;
+                    padding: 10px;
+                    border-radius: 15px;
+                    margin-left: 10px;
+                    max-width: 250px;
+                    border: .8px solid variables.$black;
+                }
+            }
+        }
+
+        &__footer{
+            width: 100vw;
+            height: 90px;
+            display: flex;
+            align-items: center;
+
+            &__send-container{
+                position: fixed;
+                bottom: 0px;
+                background-color: variables.$white;
+                width: 100%;
+                height: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 1px 1px 10px 0px variables.$semi-grey;
+
+                &__inpt{
+                    position: relative;
+                    top: 20px;
+                    align-self: center;
+                }
+
+                &__btn{
+                    position: absolute;
+                    right: 40px;
                 }
             }
         }
