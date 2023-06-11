@@ -1,6 +1,6 @@
 {
   "name": "Tux3er-Ecommerce",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Frontend Ecommerce Web APP",
   "main": "/src/js/script.js",
   "scripts": {
