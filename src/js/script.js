@@ -1,5 +1,3 @@
-
-
 //General Variables
 const body = document.body;
 const DISPLAY_TYPES = {
@@ -89,7 +87,7 @@ const ecommerceAdmin = document.querySelector('.ecommerce__admin');
 
 let preText;
 let apiKey;
-fetch('/.vscode/settings.json').then((res) =>{
+fetch('/.env/keys.json').then((res) =>{
     res.json().then((res) =>{
         apiKey = res.openaiapi;
     })
