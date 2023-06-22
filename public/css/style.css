@@ -1189,6 +1189,9 @@ template {
   margin-left: 5px;
 }
 .ecommerce .ecommerce__chat__main__conversation-container__bot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   align-self: flex-start;
   margin-bottom: 10px;
   padding: 10px;
@@ -1526,6 +1529,52 @@ input::placeholder {
   border-radius: 50%;
   border: 2px solid #000;
   border-left: 2px solid #fff;
+}
+
+.loader {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: #fff;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.loader::after,
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: scale(0.5) translate(0, 0);
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  animation: animloader 1s infinite ease-in-out;
+}
+
+.loader::before {
+  background-color: #000;
+  transform: scale(0.5) translate(-20px, -20px);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes animloader {
+  50% {
+    transform: scale(1) translate(-50%, -50%);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
