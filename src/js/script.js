@@ -296,8 +296,6 @@ function displayAdminDahsboard(){
             navImgInpt.addEventListener('change', () =>{
                 let file = navImgInpt.files[0];
                 imgUrl = URL.createObjectURL(file);
-                console.log(file);
-                console.log(imgUrl);
                 navImgIcon.style.opacity = '0';
                 navImg.setAttribute('src', imgUrl);
             })
@@ -405,9 +403,7 @@ function displayAdminDahsboard(){
                     changePageFormInfo.innerHTML = `Your actual ${changePageTxtArr[1]} is: `;
                     changePageFormInpt.setAttribute('placeholder', `Change your ${changePageTxtArr[1]}`)
                     if (changePageTxtArr[1] == 'Name'){
-                        console.log(1);
                         changePageFormInfoValue.innerHTML = username;
-                        console.log(changePageFormInfoValue.innerHTML);
                         changePageFormBtn.addEventListener('click', () =>{
                             username = changePageFormInpt.value;
                             while (ecommerceAdmin.firstChild){
@@ -422,9 +418,7 @@ function displayAdminDahsboard(){
                             }, 600)
                         })
                     } else if (changePageTxtArr[1] == 'Password'){
-                        console.log(2);
                         changePageFormInfoValue.innerHTML = password;
-                        console.log(password);
                         changePageFormBtn.addEventListener('click', () =>{
                             password = changePageFormInpt.value;
                             while (ecommerceAdmin.firstChild){
@@ -439,7 +433,6 @@ function displayAdminDahsboard(){
                             }, 600)
                         })
                     } else if (changePageTxtArr[1] == 'Email') {
-                        console.log(3);
                         changePageFormInfoValue.innerHTML = email;
                         changePageFormBtn.addEventListener('click', () =>{
                             email = changePageFormInpt.value;
@@ -600,7 +593,6 @@ function displatChatDashboard(){
         const res = await fetch('/src/js/sellers.json');
         res.json().then((res_1) => {
             for (let i = 0; i < arrayId.length; i++) {
-                console.log(res_1[arrayId[i]].img);
                 const container = document.createElement('DIV');
                 const infoContainer = document.createElement('DIV');
                 let sellerImg = document.createElement('IMG');
@@ -614,7 +606,6 @@ function displatChatDashboard(){
                 sellerNick.innerHTML = res_1[arrayId[i]].nickname;
                 fetch('https://fakestoreapi.com/products').then((res_2) => {
                     res_2.json().then((res_3) => {
-                        console.log(res_3[arrayId[i]].image);
                         productImg.setAttribute('src', res_3[arrayId[i]].image);
                         productImg.setAttribute('alt', 'Product');
                         productImg.classList.add('ecommerce__chat-dashboard__chats-container__container__product-img');
@@ -725,7 +716,6 @@ function displayChat(){
     fetch('/src/js/sellers.json').then((res) =>{
         res.json().then((res) =>{
             for (let i = 0; i < 20; i++){
-                console.log(chatConversationsArr[arrayId[i]])
                     mainConversationContainer.innerHTML = chatConversationsArr[arrayId[i][0]];
             }
         }).catch((err) =>{
@@ -775,6 +765,12 @@ function displayChat(){
         botContainer.classList.add('ecommerce__chat__main__conversation-container__bot-container');
         botMess.classList.add('ecommerce__chat__main__conversation-container__bot-container__mess');
 
+        let loader = document.createElement('SPAN');
+        loader.classList.add('loader');
+        botContainer.style.width = '100px';
+        botContainer.style.height = '50px';
+        botContainer.appendChild(loader);
+
         userMess.innerHTML = sendInpt.value;
 
                     const getBotMessage = async () =>{
@@ -798,14 +794,19 @@ function displayChat(){
                           );
                           const chatbotResponse = response.data.choices[0].text;
                         console.log(chatbotResponse);
-                        botMess.innerHTML = chatbotResponse;
+                        setTimeout(() =>{
+                            botContainer.style.width = '';
+                            botContainer.style.height = '';
+                            botContainer.removeChild(loader);
+                            botMess.innerHTML = chatbotResponse;
+                            botContainer.appendChild(botMess);
+                        }, 2000)
                     }
 
                     getBotMessage();
 
                 sendInpt.value = '';
         userContainer.appendChild(userMess);
-        botContainer.appendChild(botMess);
         mainConversationContainer.appendChild(userContainer);
         mainConversationContainer.appendChild(botContainer);
         setTimeout(() =>{
@@ -856,14 +857,18 @@ signUpFormAccountLogin.addEventListener('click', () =>{
 });
 
 logFormBtn.addEventListener('click', () =>{
+    username = localStorage.getItem("Name");
+    email = localStorage.getItem("Email");
+    password = localStorage.getItem("Password");
     if (logFormNameInpt.value == '' && logFormNameInpt.value == ''){
         logFormError.innerHTML = "You can not put empty results"
     } else if (logFormPasswordInpt.value.length < 6){
         logFormError.innerHTML = "At least 6 characters for the password";
-    } else {
-        username = "John Doe";
-        email = logFormNameInpt.value;
-        password = logFormPasswordInpt.value;
+    } else if (email === null && password === null) {
+        logFormError.innerHTML = "You don't have an account";
+    } else if (logFormNameInpt.value !== email || logFormPasswordInpt.value !== password){
+        logFormError.innerHTML = "Your email or password are incorrect";
+    }  else {
         logForm.style.display = 'none';
         displayEcommerce();
     }
@@ -902,6 +907,9 @@ signUpFormBtn.addEventListener('click', () =>{
         username = signUpFormNameInpt.value;
         email = signUpFormEmailInpt.value;
         password = signUpFormPasswordInpt.value;
+        localStorage.setItem("Name", username);
+        localStorage.setItem("Email", email);
+        localStorage.setItem("Password", password);
         signUpForm.style.display = 'none';
         displayEcommerce();
     }
@@ -1095,13 +1103,6 @@ const getEcommerceProducts = async () =>{
                             succsefulContainer.style.display = DISPLAY_TYPES.NONE;
                         }, 2000)
 
-                    // let img = evt.target.parentNode.parentNode.parentNode.parentNode.childNodes[0].src;
-                    // let productName = evt.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[0].innerHTML;
-                    // let price = evt.target.parentNode.parentNode.parentNode.childNodes[2].childNodes[1].childNodes[0].innerHTML;
-                    // let productId = evt.target.parentNode.parentNode.parentNode.parentNode.id;
-
-                    console.log(evt.target.parentNode.parentNode.parentNode.parentNode);
-
                     function createCartProductContainer(){
                         //Variables
                         const container = document.createElement('DIV');
@@ -1132,7 +1133,6 @@ const getEcommerceProducts = async () =>{
                             let imgRoute = arrayContainer[i].childNodes[0].src;
                             for (let j = i + 1; j < arrayContainer.length; j++){
                                 if (imgRoute === arrayContainer[j].childNodes[0].src){
-                                    console.log(`La imagen duplicada es ${imgRoute}`);
                                     arrayContainer.pop();
                                     succsefulContainer.classList.add('error-container');
                                     succsefulContainer.style.animation = 'surprise .8s';
@@ -1152,7 +1152,6 @@ const getEcommerceProducts = async () =>{
 
                 chat.addEventListener('click', (evt) =>{
                     arrayId.push(parseInt(res[i].id) - 1);
-                    console.log(arrayId);
                     const succsefulContainer = document.createElement('DIV');
                     let succesfulTitle = document.createElement('H2');
 
@@ -1175,7 +1174,6 @@ const getEcommerceProducts = async () =>{
                             fetch('/src/js/sellers.json').then((res) =>{
                                 res.json().then((res) =>{
                                     for (let j = i + 1; j < arrayId.length; j++){
-                                        console.log(res[arrayId[j]].img);
                                         if (res[arrayId[i]].img === res[arrayId[j]].img){
                                             arrayId.pop();
                                             succsefulContainer.classList.add('error-container');
@@ -1241,17 +1239,12 @@ const getEcommerceProducts = async () =>{
                     
                 //Parse Float
                 numPrice = parseInt(numPrice);
-                console.log(res[i].price);
-                console.log(price.innerHTML);
                                         
                 //Event Listeners
                 plus.addEventListener('click', () =>{
                     numInt = parseInt(num.innerHTML);
                     numInt += 1;
                     num.innerHTML = numInt;
-                    console.log(parseInt(price.innerHTML.split('$')[0]))
-                    console.log(parseInt(res[i].price));
-                    console.log(parseInt(price.innerHTML.split('$')[0]) + parseInt(res[i].price))
                     price.innerHTML = parseInt(price.innerHTML.split('$')[0]) + parseInt(res[i].price) + '$';
                     totalNum.innerHTML = price.innerHTML;
                     arrayContainer = [];
@@ -1329,10 +1322,6 @@ const getEcommerceProducts = async () =>{
                     })
 
                     trolleyContainer.addEventListener('click', (evt) =>{
-                        // let productName = evt.target.parentNode.parentNode.childNodes[0].innerHTML;
-                        // let img = evt.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].src;
-                        // console.log(productName);
-                        // console.log(img);
 
                         function createCartProductContainer(){
                             //Variables
@@ -1386,7 +1375,6 @@ const getEcommerceProducts = async () =>{
                                 let imgRoute = arrayContainer[i].childNodes[0].src;
                                 for (let j = i + 1; j < arrayContainer.length; j++){
                                     if (imgRoute === arrayContainer[j].childNodes[0].src){
-                                        console.log(`La imagen duplicada es ${imgRoute}`);
                                         arrayContainer.pop();
                                         succsefulContainer.classList.add('error-container');
                                         succsefulContainer.style.animation = 'surprise .8s';
@@ -1471,4 +1459,4 @@ getEcommerceProducts();
 
 function eliminarDuplicados(array) {
     return array.filter((elemento, indice) => array.indexOf(elemento) === indice);
-  }
+}
